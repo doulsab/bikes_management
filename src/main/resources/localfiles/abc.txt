@@ -1,0 +1,17 @@
+bikes_management
+                ├── src
+                │   ├── main
+                │   │   ├── java
+                │   │   │   └── com
+                │   │   │       └── dd
+                │   │   │           └── bikes
+                │   │   │               ├── BikesManagementApplication.java
+                │   │   │               ├── config
+                │   │   │               │   └── Webconfig.java
+                │   │   │               └── controller
+                │   │   │                   └── ViewController.java
+                │   │   └── webapp
+                │   │       └── WEB-INF
+                │   │           └── views
+                │   │               └── index.html
+                └── ...
