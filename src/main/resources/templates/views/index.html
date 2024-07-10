@@ -22,13 +22,15 @@
 						<form>
 							<div class="form-group">
 								<label for="username">Username</label> <input type="text"
-									class="form-control" id="username" name="username" required>
+									class="form-control" id="username" ng-model="username"
+									autocomplete="off" required>
 							</div>
 							<div class="form-group">
 								<label for="password">Password</label> <input type="password"
-									class="form-control" id="password" name="password" required>
+									class="form-control" id="password" ng-model="password"
+									autocomplete="off" required>
 							</div>
-							<button type="submit" class="btn btn-primary btn-block">Login</button>
+							<button type="submit" class="btn btn-primary btn-block" ng-click = "checkAuth();">Login</button>
 						</form>
 					</div>
 				</div>

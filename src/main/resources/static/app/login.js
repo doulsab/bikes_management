@@ -8,5 +8,11 @@ myApp.controller('loginContrl', [
 		$scope.init = () => {
 			console.log(" this is the main controller login");
 		};
+
+		$scope.checkAuth = () => {
+			console.log("User ", $scope.username);
+			console.log("Password ", $scope.password);
+
+		}
 	}
 ]);
