@@ -20,13 +20,9 @@ myApp.controller('addBikeCtrl', ['$scope', '$http', ($scope, $http) => {
 				'Content-Type': 'application/json'
 			}
 		}).then(function(response) {
-			// this callback will be called asynchronously
-			// when the response is available
 			console.log(response.data);
 		}, function(response) {
 			console.log(response);
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
 		});
 	}
 	$scope.clearFields = () => {

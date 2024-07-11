@@ -1,1 +1,1 @@
-export const myApp = angular.module('myApp', []);
+export let myApp = angular.module('myApp', []);

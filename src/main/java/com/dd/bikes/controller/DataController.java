@@ -13,7 +13,7 @@ public class DataController {
 
 	@PostMapping("/addDetails")
 	public Bike addBikeDetails(@RequestBody Bike bike) {
-		System.out.println("Bike Data is " + bike);
+//		System.out.println("Bike Data is " + bike);
 		return null;
 
 	}
