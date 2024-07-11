@@ -1,15 +1,14 @@
-
-const myApp = angular.module('myApp', []);
-
-myApp.controller('addBikeCtrl', ['$scope', '$http', ($scope, $http) => {
+//--------------------------- Add Controller ----------
+myApp.controller('addBikeCtrl', function($scope, $http, BikeTypesFactory, meassgeAlertService) {
+	$scope.bikeTypes = BikeTypesFactory.getBikeTypes();
 
 	$scope.saveDetails = () => {
-		//		console.log("User clicked on save")
 		let dataJson = {
 			model: $scope.model,
 			manufacturer: $scope.manufacturer,
 			year: $scope.myear,
-			price: $scope.price
+			price: $scope.price,
+			bikeType: $scope.selectedBikeType,
 		}
 		console.log("Data Json data ", dataJson);
 		$http({
@@ -20,8 +19,20 @@ myApp.controller('addBikeCtrl', ['$scope', '$http', ($scope, $http) => {
 				'Content-Type': 'application/json'
 			}
 		}).then(function(response) {
-			console.log(response.data);
+			//			console.log(response);
+			if (response.status === 201) {
+				meassgeAlertService.showAlert('Success!', 'Data saved successfully!', 'success')
+					.then(() => {
+						setTimeout(() => {
+							window.location.href = "dashboard";
+						}, 2500);
+					})
+					.catch(() => {
+						console.log('Alert closed without action');
+					});
+			}
 		}, function(response) {
+			meassgeAlertService.showAlert('Error!', 'Failed to save data!', 'error');
 			console.log(response);
 		});
 	}
@@ -31,5 +42,8 @@ myApp.controller('addBikeCtrl', ['$scope', '$http', ($scope, $http) => {
 		$scope.myear = null;
 		$scope.price = null;
 	}
+	$scope.backToDashboard = () => {
+		window.location.href = "dashboard"
+	}
 }
-]);
+);

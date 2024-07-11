@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ViewController {
 
 	@GetMapping("/")
+	public String dashboardPage() {
+		return "dashboard";
+	}
+
+	@GetMapping("/login")
 	public String indexPage() {
 		return "index";
 	}
@@ -14,5 +19,10 @@ public class ViewController {
 	@GetMapping("/add")
 	public String addDetails() {
 		return "addBike";
+	}
+
+	@GetMapping("/dashboard")
+	public String goToDashboard() {
+		return "dashboard";
 	}
 }

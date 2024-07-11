@@ -1,0 +1,24 @@
+2024-07-12 00:12:07 INFO  AnnotationConfigContextLoaderUtils:83 - Could not detect default configuration classes for test class [com.dd.bikes.BikesManagementApplicationTests]: BikesManagementApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-07-12 00:12:07 INFO  SpringBootTestContextBootstrapper:234 - Found @SpringBootConfiguration com.dd.bikes.BikesManagementApplication for test class com.dd.bikes.BikesManagementApplicationTests
+2024-07-12 00:12:08 INFO  RestartApplicationListener:74 - Restart disabled due to context in which it is running
+2024-07-12 00:12:08 INFO  BikesManagementApplicationTests:50 - Starting BikesManagementApplicationTests using Java 17.0.8 with PID 12740 (started by DD in O:\Doulsab\Projects-2024\Projects\bikes_management)
+2024-07-12 00:12:08 DEBUG BikesManagementApplicationTests:51 - Running with Spring Boot v3.3.1, Spring v6.1.10
+2024-07-12 00:12:08 INFO  BikesManagementApplicationTests:654 - No active profile set, falling back to 1 default profile: "default"
+2024-07-12 00:12:09 INFO  RepositoryConfigurationDelegate:143 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-12 00:12:09 INFO  RepositoryConfigurationDelegate:211 - Finished Spring Data repository scanning in 85 ms. Found 1 JPA repository interface.
+2024-07-12 00:12:10 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-12 00:12:10 INFO  Version:44 - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-12 00:12:10 INFO  RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+2024-07-12 00:12:11 INFO  SpringPersistenceUnitInfo:87 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-12 00:12:11 INFO  HikariDataSource:109 - HikariPool-1 - Starting...
+2024-07-12 00:12:11 INFO  HikariPool:554 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6de33fde
+2024-07-12 00:12:11 INFO  HikariDataSource:122 - HikariPool-1 - Start completed.
+2024-07-12 00:12:11 WARN  deprecation:153 - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-12 00:12:11 WARN  deprecation:101 - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-07-12 00:12:12 INFO  JtaPlatformInitiator:59 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-12 00:12:12 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-12 00:12:12 WARN  JpaBaseConfiguration$JpaWebConfiguration:236 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-12 00:12:13 INFO  BikesManagementApplicationTests:56 - Started BikesManagementApplicationTests in 5.396 seconds (process running for 7.18)
+2024-07-12 00:12:14 INFO  LocalContainerEntityManagerFactoryBean:650 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-12 00:12:14 INFO  HikariDataSource:349 - HikariPool-1 - Shutdown initiated...
+2024-07-12 00:12:14 INFO  HikariDataSource:351 - HikariPool-1 - Shutdown completed.
