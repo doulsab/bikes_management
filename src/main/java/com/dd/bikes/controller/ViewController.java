@@ -25,4 +25,8 @@ public class ViewController {
 	public String goToDashboard() {
 		return "dashboard";
 	}
+	@GetMapping("/editBikeDetails")
+	public String goToEditPage() {
+		return "editBike";
+	}
 }

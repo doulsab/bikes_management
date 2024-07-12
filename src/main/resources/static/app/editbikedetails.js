@@ -1,8 +1,31 @@
 //--------------------------- Add Controller ----------
-myApp.controller('addBikeCtrl', function($scope, $http, BikeTypesFactory, meassgeAlertService) {
+myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meassgeAlertService) {
 	$scope.bikeTypes = BikeTypesFactory.getBikeTypes();
 
-	$scope.saveDetails = () => {
+	$scope.onload = () => {
+		getBideDetailsById();
+	}
+
+
+	const getBideDetailsById = () => {
+		let bikeId = sessionStorage.getItem("bikeId");
+
+		$http({
+			method: "GET",
+			url: 'getDetailsById/' + bikeId,
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function(response) {
+			console.log("Response Edit", response.data);
+			sessionStorage.removeItem("bikeId");
+		}, function(response) {
+			console.log("Response", response);
+		});
+
+	}
+
+	$scope.updateDetails = () => {
 		let dataJson = {
 			model: $scope.model,
 			manufacturer: $scope.manufacturer,
@@ -13,26 +36,18 @@ myApp.controller('addBikeCtrl', function($scope, $http, BikeTypesFactory, meassg
 		console.log("Data Json data ", dataJson);
 		$http({
 			method: "POST",
-			url: 'addDetails',
+			url: 'updateDetails',
 			data: dataJson,
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		}).then(function(response) {
-			
+
 			if (response.status === 201) {
-				meassgeAlertService.showAlert('Success!', 'Data saved successfully!', 'success');
-//					.then(() => {
-						setTimeout(() => {
-							window.location.href = "dashboard";
-						}, 2500);
-//					})
-//					.catch(() => {
-//						console.log('Alert closed without action');
-//					});
+				meassgeAlertService.showAlert('Success!', 'Data Update successfully!', 'success');
 			}
 		}, function(response) {
-			meassgeAlertService.showAlert('Error!', 'Failed to save data!', 'error');
+			meassgeAlertService.showAlert('Error!', 'Failed to update data!', 'error');
 			console.log(response);
 		});
 	}

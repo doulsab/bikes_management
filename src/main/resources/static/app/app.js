@@ -27,22 +27,23 @@ myApp.factory('BikeTypesFactory', () => {
 // SweetAlert Service
 myApp.service('meassgeAlertService', ['$q', function($q) {
 	this.showAlert = function(title, text, icon) {
-		let deferred = $q.defer();
+//		let deferred = $q.defer();
 
 		Swal.fire({
 			title: title,
 			text: text,
 			icon: icon,
 			confirmButtonText: 'OK'
-		}).then((result) => {
+		});
+		/*.then((result) => {
 			console.log("clicked action ", result);
 			if (result.isConfirmed) {
 				deferred.resolve();
 			} else {
 				deferred.reject();
 			}
-		});
+		});*/
 
-		return deferred.promise;
+//		return deferred.promise;
 	};
 }]);

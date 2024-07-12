@@ -2,6 +2,7 @@ package com.dd.bikes.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +33,11 @@ public class DataService implements IDataService {
 	@Override
 	public List<Bike> getBikeList() {
 		return this.bikeRepository.findAll();
+	}
+
+	@Override
+	public Optional<Bike> getBikeById(Long bikeId) {
+		return this.bikeRepository.findById(bikeId);
 	}
 
 }

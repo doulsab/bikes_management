@@ -1,15 +1,16 @@
 package com.dd.bikes.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +41,10 @@ public class DataController {
 	public ResponseEntity<List<Bike>> getBikes() {
 		return ResponseEntity.status(HttpStatus.OK).body(bikeService.getBikeList());
 	}
-
+	@GetMapping(value = "/getDetailsById/{bikeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Optional<Bike>> getByDetailsById(@PathVariable("bikeId") Long bikeId ) {
+		Optional<Bike> bike = bikeService.getBikeById(bikeId);
+		return ResponseEntity.status(HttpStatus.OK).body(bike);
+	}
 }
+

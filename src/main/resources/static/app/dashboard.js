@@ -23,5 +23,10 @@ myApp.controller('dashboardCtrl', ($scope, $http) => {
 	$scope.goToAddPage = () => {
 		window.location.href = "add";
 	}
+
+	$scope.editDetails = (id) => {
+		sessionStorage.setItem('bikeId', id);
+		window.location.href = "editBikeDetails";
+	}
 }
 );
