@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.dd.bikes.exception.BikeIdNotExist;
 import com.dd.bikes.model.Bike;
 import com.dd.bikes.repository.BikeRepository;
 import com.dd.bikes.service.IDataService;
@@ -38,6 +39,29 @@ public class DataService implements IDataService {
 	@Override
 	public Optional<Bike> getBikeById(Long bikeId) {
 		return this.bikeRepository.findById(bikeId);
+	}
+
+	@Override
+	public Bike updateBike(Bike bike) throws BikeIdNotExist {
+		Long bikeId = bike.getId();
+		Optional<Bike> optionalBike = bikeRepository.findById(bikeId);
+
+		if (optionalBike.isPresent()) {
+			Bike existingBike = optionalBike.get();
+			existingBike.setModel(bike.getModel());
+			existingBike.setManufacturer(bike.getManufacturer());
+			existingBike.setYear(bike.getYear());
+			existingBike.setPrice(bike.getPrice());
+			existingBike.setBikeType(bike.getBikeType());
+			return bikeRepository.save(existingBike);
+		} else {
+			throw new BikeIdNotExist("Bike with IDnot found {}" + bikeId + " not found");
+		}
+	}
+
+	@Override
+	public void deleteBike(Long id) {
+		bikeRepository.deleteById(id);		
 	}
 
 }

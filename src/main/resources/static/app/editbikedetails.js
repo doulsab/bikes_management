@@ -12,39 +12,46 @@ myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meass
 
 		$http({
 			method: "GET",
-			url: 'getDetailsById/' + bikeId,
+			url: `getDetailsById/${bikeId}`,
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		}).then(function(response) {
-			console.log("Response Edit", response.data);
-			sessionStorage.removeItem("bikeId");
+			const bikeDetails = response.data;
+			$scope.model = bikeDetails.model;
+			$scope.manufacturer = bikeDetails.manufacturer;
+			$scope.myear = bikeDetails.year;
+			$scope.price = bikeDetails.price;
+			$scope.selectedBikeType = bikeDetails.bikeType;
+			$scope.bikeId = bikeDetails.id;
 		}, function(response) {
-			console.log("Response", response);
+			console.log("Error response", response);
+			meassgeAlertService.showAlert('Error!', 'Failed to get data!', 'error');
 		});
 
 	}
 
 	$scope.updateDetails = () => {
 		let dataJson = {
+			id:$scope.bikeId,
 			model: $scope.model,
 			manufacturer: $scope.manufacturer,
 			year: $scope.myear,
 			price: $scope.price,
 			bikeType: $scope.selectedBikeType,
 		}
-		console.log("Data Json data ", dataJson);
+		console.log("Update Json data ", dataJson);
 		$http({
-			method: "POST",
+			method: "PUT",
 			url: 'updateDetails',
 			data: dataJson,
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		}).then(function(response) {
-
-			if (response.status === 201) {
-				meassgeAlertService.showAlert('Success!', 'Data Update successfully!', 'success');
+			console.log("Update data is ", response);
+			if (response.status === 200) {
+				meassgeAlertService.showAlert('Success!', 'Data Updated successfully!', 'success');
 			}
 		}, function(response) {
 			meassgeAlertService.showAlert('Error!', 'Failed to update data!', 'error');

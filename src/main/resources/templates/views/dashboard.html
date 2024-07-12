@@ -2,23 +2,23 @@
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org" class="no-js">
 
 <head>
-<!-- META DATA -->
-<meta http-equiv="content-type" content="text/html;charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
-<meta name="author" content="">
-<title>Add Bike Details</title>
-<!--	<link th:href="@{/css/fontawesome.min.css}" rel="stylesheet">-->
-<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link th:href="@{/css/styles.css}" rel="stylesheet">
+	<!-- META DATA -->
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+	<meta name="author" content="">
+	<title>Add Bike Details</title>
+	<!--	<link th:href="@{/css/fontawesome.min.css}" rel="stylesheet">-->
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 
 <body ng-app="myApp" ng-controller="dashboardCtrl" ng-init="onload();">
 	<div class="container header-dashboard ">
 		<h2 class="text-primary text-center">Bikes Dashboard</h2>
 		<table class="table table-striped table-bordered">
+			<caption>List of Bikes</caption>
 			<thead class="table-dark">
 				<tr>
 					<th>SL.no</th>
@@ -48,17 +48,41 @@
 						<button class="btn btn-sm btn-info" title="Edit" ng-click="editDetails(bike.id);">
 							<i class="fas fa-pencil-alt"></i>
 						</button>
-						<button class="btn btn-sm btn-danger" title="Delete">
+						<button class="btn btn-sm btn-danger" title="Delete" ng-click="openDeleteModel(bike.id);">
 							<i class="fas fa-trash"></i>
 						</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+
+		<!-- Delete Confirmation Modal -->
+		<div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+							ng-click="closeModel();">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Are you sure you want to delete this bike?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"
+							ng-click="closeModel();">No</button>
+						<button type="button" class="btn btn-danger" ng-click="deleteBike();">Yes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div>
 			<!-- Button to add new bike -->
-			<button type="button" class="btn btn-success btn-lg"
-				ng-click="goToAddPage()" title="Add New Bike">
+			<button type="button" class="btn btn-success btn-lg" ng-click="goToAddPage()" title="Add New Bike">
 				<i class="fas fa-plus"></i> Add Bike
 			</button>
 		</div>
@@ -67,9 +91,11 @@
 
 	<!-- JavaScript dependencies -->
 	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/js/angular.min.js}"></script>
+	<script th:src="@{/js/sweetalert.js}"></script>
 	<script th:src="@{/app/app.js}"></script>
 	<script th:src="@{/app/dashboard.js}"></script>
 </body>
