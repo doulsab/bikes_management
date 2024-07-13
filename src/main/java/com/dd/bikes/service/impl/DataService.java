@@ -1,6 +1,5 @@
 package com.dd.bikes.service.impl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,6 @@ public class DataService implements IDataService {
 
 	@Override
 	public Bike addBike(Bike bike) {
-		bike.setCreatedDate(new Date());
 		bike = bikeRepository.save(bike);
 		logger.info("Bike details stored successfully with id {}", bike.getId());
 		return bike;

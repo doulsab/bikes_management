@@ -15,19 +15,24 @@ import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "bikes")
+@Table(name = "user_details")
 @Entity
 @Data
 @NoArgsConstructor
-public class Bike {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String model;
-	private String manufacturer;
-	private int year;
-	private double price;
-	private String bikeType;
+	private Integer userId;
+	private String name;
+	@Column(unique = true)
+	private String username;
+	private String email;
+	private String password;
+	private String gender;
+	private Long mobile;
+	private Date birthdate;
+	private String address;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createdDate;

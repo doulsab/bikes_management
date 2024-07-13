@@ -8,12 +8,12 @@ public class ViewController {
 
 	@GetMapping("/")
 	public String dashboardPage() {
-		return "dashboard";
+		return "login";
 	}
 
 	@GetMapping("/login")
 	public String indexPage() {
-		return "index";
+		return "login";
 	}
 
 	@GetMapping("/add")
@@ -25,8 +25,13 @@ public class ViewController {
 	public String goToDashboard() {
 		return "dashboard";
 	}
+
 	@GetMapping("/editBikeDetails")
 	public String goToEditPage() {
 		return "editBike";
+	}
+	@GetMapping("/addUser")
+	public String addUserPage() {
+		return "signupUser";
 	}
 }
