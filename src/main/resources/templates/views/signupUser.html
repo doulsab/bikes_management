@@ -18,57 +18,56 @@
 	<div class="container mt-1">
 		<button type="submit" class="btn btn-secondary" ng-click="goToLoginPage()"> <i class="fas fa-arrow-left"></i>
 			Back to login page</button>
+		<hr />
 		<div class="card">
 			<div class="card-header bg-primary text-white">
-				<h3 class="card-title">Add Details</h3>
+				<h5 class="card-title">Add Details</h5>
 			</div>
 			<div class="card-body">
-				<form>
-					<div class="form-group">
-						<label for="name"> Name  <i class="fas fa-id-card"></i></label>
-						<input type="text" class="form-control" id="fullname" placeholder="Enter fullname"
-							ng-model="fullname">
-					</div>
-					<div class="form-group">
-						<label for="username"> Username  <i class="fas fa-user"></i></label>
-						<input type="text" class="form-control" id="username" placeholder="Enter username"
-							ng-model="username">
-					</div>
-					<div class="form-group">
-						<label for="email"> Email address  <i class="fas fa-envelope"></i></label>
-						<input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="email">
-					</div>
-					<div class="form-group">
-						<label for="password"> Password  <i class="fas fa-lock"></i></label>
-						<input type="password" class="form-control" id="password" placeholder="Enter password"
-							ng-model="password">
-					</div>
-					<div class="form-group">
-						<label for="mobile"> Mobile  <i class="fas fa-phone"></i></label>
-						<input type="number" class="form-control" id="mobile" placeholder="Enter mobile number"
-							ng-model="mobile">
-					</div>
-					<div class="form-group">
-						<label for="birthdate"> Birthdate  <i class="fas fa-calendar-alt"></i></label>
-						<input type="date" class="form-control" id="birthdate" ng-model="birthdate">
-					</div>
-					<div class="form-group">
-						<label for="gender">Gender  <i class="fas fa-venus-mars"></i></label>
-						<select class="form-control" id="gender" ng-model="gender" ng-options="g for g in genderList">
-							<option value="" disabled>Select Gender</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="address"> Address  <i class="fas fa-map-marker-alt"></i></label>
-						<textarea class="form-control" id="address" rows="3" placeholder="Enter address"
-							ng-model="address"></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary" ng-click="saveUser()"> <i class="fas fa-save"></i>
-						Save</button>
-					<button type="submit" class="btn btn-secondary" ng-click="clearFields()"> <i
-							class="fas fa-trash-alt"></i>
-						Clear Fields</button>
-				</form>
+				<div class="form-group">
+					<label for="name"> Name <i class="fas fa-id-card"></i></label>
+					<input type="text" class="form-control" id="fullname" placeholder="Enter Full Name"
+						ng-model="fullname">
+				</div>
+				<div class="form-group">
+					<label for="username"> Username <i class="fas fa-user"></i></label>
+					<input type="text" class="form-control" id="username" placeholder="Enter username"
+						ng-model="username">
+				</div>
+				<div class="form-group">
+					<label for="email"> Email address <i class="fas fa-envelope"></i></label>
+					<input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="email">
+				</div>
+				<div class="form-group">
+					<label for="password"> Password <i class="fas fa-lock"></i></label>
+					<input type="password" class="form-control" id="password" placeholder="Enter password"
+						ng-model="password">
+				</div>
+				<div class="form-group">
+					<label for="mobile"> Mobile <i class="fas fa-phone"></i></label>
+					<input type="number" class="form-control" id="mobile" maxlength="10"
+						placeholder="Enter mobile number" ng-model="mobile">
+				</div>
+				<div class="form-group">
+					<label for="birthdate"> Birthdate <i class="fas fa-calendar-alt"></i></label>
+					<input type="date" class="form-control" id="birthdate" ng-model="birthdate">
+				</div>
+				<div class="form-group">
+					<label for="gender">Gender <i class="fas fa-venus-mars"></i></label>
+					<select class="form-control" id="gender" ng-model="gender" ng-options="g for g in genderList">
+						<option value="" disabled>Select Gender</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="address"> Address <i class="fas fa-map-marker-alt"></i></label>
+					<textarea class="form-control" id="address" rows="3" placeholder="Enter address" ng-model="address"
+						spellcheck="true"></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary" ng-click="saveUser()"> <i class="fas fa-save"></i>
+					Save</button>
+				<button type="submit" class="btn btn-secondary" ng-click="clearFields()"> <i
+						class="fas fa-trash-alt"></i>
+					Clear Fields</button>
 			</div>
 		</div>
 	</div>

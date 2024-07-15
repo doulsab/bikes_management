@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.dd.bikes.exception.UsernameAlreadyExists;
+import com.dd.bikes.model.LoginRequest;
 import com.dd.bikes.model.User;
 import com.dd.bikes.repository.IUserRepository;
 import com.dd.bikes.service.IUserService;
@@ -21,15 +21,24 @@ public class UserService implements IUserService {
 
 	@Override
 	public User addUser(User user) {
-		// Check if the user name already exists
-		User existingUser = userRepository.findByUsername(user.getUsername());
-		if (existingUser != null) {
-			logger.debug("Username already exists {} ", user.getUsername());
-			throw new UsernameAlreadyExists("Username already exists");
-		}
-		user = userRepository.save(user);
-		logger.info("Saved user with user id {} ", user.getUserId());
-		return user;
+		User savedUser = this.userRepository.save(user);
+		logger.info("User saved successfully with Id {} ", savedUser.getUserId());
+		return savedUser;
 	}
 
+	@Override
+	public boolean checkUsernameExist(String username) {
+		User existingUser = userRepository.findByUsername(username);
+		if (existingUser != null) {
+			logger.debug("Username already exists {} ", username);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean authenticate(String username, String password) {
+		User isUserPresent = this.userRepository.findByUsernameAndPassword(username, password);
+		return isUserPresent != null;
+	}
 }

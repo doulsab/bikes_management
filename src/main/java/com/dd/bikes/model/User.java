@@ -30,9 +30,10 @@ public class User {
 	private String password;
 	private String gender;
 	private Long mobile;
-	private Date birthdate;
-	private String address;
 	
+	private String birthdate;
+	private String address;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createdDate;

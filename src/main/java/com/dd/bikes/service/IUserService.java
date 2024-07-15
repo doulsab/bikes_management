@@ -6,4 +6,8 @@ public interface IUserService {
 
 	User addUser(User user);
 
+	boolean checkUsernameExist(String username);
+
+	boolean authenticate(String username, String password);
+
 }

@@ -1,5 +1,5 @@
 //--------------------------- Add User Controller ----------
-myApp.controller('addUserCtrl', function($scope, $http, meassgeAlertService) {
+myApp.controller('addUserCtrl', function($scope, $http, meassgeAlertService, $filter) {
 	$scope.onload = () => {
 		$scope.genderList = genders;
 	}
@@ -8,7 +8,7 @@ myApp.controller('addUserCtrl', function($scope, $http, meassgeAlertService) {
 		//		Validation need to TODO
 		let dataJson = {
 			address: $scope.address,
-			birthdate: $scope.birthdate,
+			birthdate: $filter('date')($scope.birthdate, 'dd/MM/yyyy'),
 			mobile: $scope.mobile,
 			gender: $scope.gender,
 			email: $scope.email,
@@ -16,7 +16,7 @@ myApp.controller('addUserCtrl', function($scope, $http, meassgeAlertService) {
 			username: $scope.username,
 			password: $scope.password
 		}
-		//		console.log("Update Json data ", dataJson);
+		console.log("Update Json data ", dataJson);
 		$http({
 			method: "POST",
 			url: 'adduserdetails',
@@ -31,11 +31,12 @@ myApp.controller('addUserCtrl', function($scope, $http, meassgeAlertService) {
 			}
 		}, function(error) {
 			console.log(error);
-			if (error.status === 400) {
+			if (error.status === 409) {
 				meassgeAlertService.showAlert('Error!', 'Username already exists!', 'error');
 			} else {
 				meassgeAlertService.showAlert('Error!', 'Failed to save user data!', 'error');
 			}
+			return false;
 		});
 	}
 	$scope.clearFields = () => {
