@@ -1,5 +1,8 @@
 package com.dd.bikes.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dd.bikes.exception.UsernameAlreadyExists;
 import com.dd.bikes.model.LoginRequest;
 import com.dd.bikes.model.User;
 import com.dd.bikes.service.IUserService;
@@ -35,14 +37,19 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/authenticate", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> authenticateUser(@RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 		String username = loginRequest.getUsername();
 		String password = loginRequest.getPassword();
+		Map<String, String> response = new HashMap<>();
+
 		boolean isAuthenticated = userService.authenticate(username, password);
 		if (isAuthenticated) {
-			return ResponseEntity.ok("Authentication successful");
+			response.put("message", "Authentication successful");
+			return ResponseEntity.ok(response);
 		} else {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+			response.put("message", "Authentication failed");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
 	}
+
 }

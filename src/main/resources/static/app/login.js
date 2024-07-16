@@ -1,4 +1,4 @@
-myApp.controller('loginContrl', ($scope, $http, meassgeAlertService,$window) => {
+myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $timeout) => {
 
 	$scope.init = () => {
 		console.log(" this is the main controller login");
@@ -25,17 +25,21 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService,$window) => 
 		}).then(function(response) {
 			console.log("Authentication success", response);
 			if (response.status === 200) {
-				meassgeAlertService.showAlert('Success!', 'Authentication successful', 'success');
-				$window.location.href = "dashboard"; // Redirect to dashboard upon successful authentication
+				meassgeAlertService.showAlert('Success!', response.data.message, 'success');
+				$timeout(() => {
+					$window.location.href = "dashboard"; // Redirect to dashboard upon successful authentication
+				}, 1000);
 			} else {
 				console.log("Unexpected response status", response.status);
 			}
-		}).catch(function(error) {
+		}, function(error) {
 			console.error("Authentication failed", error);
-			let errorMessage = error.data ? error.data : 'Authentication failed. Please check your credentials and try again.';
+			let errorMessage = error.data ? error.data.message : 'Authentication failed. Please check your credentials and try again.';
 			meassgeAlertService.showAlert('Error!', errorMessage, 'error');
 		});
 	};
+
+
 
 
 	$scope.goToSignUpForm = () => {
