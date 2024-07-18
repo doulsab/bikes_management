@@ -2,9 +2,9 @@ package com.dd.bikes.service.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.dd.bikes.model.LoginRequest;
 import com.dd.bikes.model.User;
 import com.dd.bikes.repository.IUserRepository;
 import com.dd.bikes.service.IUserService;
@@ -12,6 +12,7 @@ import com.dd.bikes.service.IUserService;
 @Service
 public class UserService implements IUserService {
 
+	BCryptPasswordEncoder brcEncoder = new BCryptPasswordEncoder();
 	private static final Logger logger = LogManager.getLogger(UserService.class);
 	private IUserRepository userRepository;
 
@@ -21,6 +22,8 @@ public class UserService implements IUserService {
 
 	@Override
 	public User addUser(User user) {
+		String encryptedPass = brcEncoder.encode(user.getPassword());
+		user.setPassword(encryptedPass);
 		User savedUser = this.userRepository.save(user);
 		logger.info("User saved successfully with Id {} ", savedUser.getUserId());
 		return savedUser;
@@ -38,7 +41,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public boolean authenticate(String username, String password) {
-		User isUserPresent = this.userRepository.findByUsernameAndPassword(username, password);
-		return isUserPresent != null;
+		User existingUser = userRepository.findByUsername(username);
+		return existingUser != null && (brcEncoder.matches(password, existingUser.getPassword()));
 	}
 }
