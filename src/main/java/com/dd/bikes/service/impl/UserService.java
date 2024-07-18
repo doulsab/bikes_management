@@ -40,8 +40,16 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public boolean authenticate(String username, String password) {
-		User existingUser = userRepository.findByUsername(username);
-		return existingUser != null && (brcEncoder.matches(password, existingUser.getPassword()));
+	public String authenticate(String username, String password) {
+	    User existingUser = userRepository.findByUsername(username);
+	    if (existingUser == null) {
+	        return "User not exist in database";
+	    }
+
+	    if (brcEncoder.matches(password, existingUser.getPassword())) {
+	        return "User is valid Authenticated successful";
+	    } else {
+	        return "Authentication failed password does not match";
+	    }
 	}
 }

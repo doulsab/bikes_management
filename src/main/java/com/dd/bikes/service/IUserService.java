@@ -8,6 +8,6 @@ public interface IUserService {
 
 	boolean checkUsernameExist(String username);
 
-	boolean authenticate(String username, String password);
+	String authenticate(String username, String password);
 
 }

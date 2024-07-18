@@ -39,9 +39,6 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $t
 		});
 	};
 
-
-
-
 	$scope.goToSignUpForm = () => {
 		window.location.href = "addUser"
 	}

@@ -43,12 +43,12 @@ public class UserController {
 		String password = loginRequest.getPassword();
 		Map<String, String> response = new HashMap<>();
 
-		boolean isAuthenticated = userService.authenticate(username, password);
-		if (isAuthenticated) {
-			response.put("message", "Authentication successful");
+		String msg = userService.authenticate(username, password);
+		if (msg.contains("User is valid")) {
+			response.put("message", msg);
 			return ResponseEntity.ok(response);
 		} else {
-			response.put("message", "Authentication failed");
+			response.put("message", msg);
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
 	}
