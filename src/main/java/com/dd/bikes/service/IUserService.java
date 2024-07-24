@@ -9,5 +9,7 @@ public interface IUserService {
 	boolean checkUsernameExist(String username);
 
 	String authenticate(String username, String password);
+	
+	boolean checkEmailExist(String email);
 
 }

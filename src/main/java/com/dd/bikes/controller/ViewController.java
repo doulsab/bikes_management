@@ -30,8 +30,18 @@ public class ViewController {
 	public String goToEditPage() {
 		return "editBike";
 	}
+
 	@GetMapping("/addUser")
 	public String addUserPage() {
 		return "signupUser";
+	}
+
+	@GetMapping("/forgotpass")
+	public String forgotPass() {
+		return "forgotpass";
+	}
+	@GetMapping("/verifyopt")
+	public String verifyOpt() {
+		return "verifyopt";
 	}
 }

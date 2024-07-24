@@ -52,4 +52,14 @@ public class UserService implements IUserService {
 	        return "Authentication failed password does not match";
 	    }
 	}
+
+	@Override
+	public boolean checkEmailExist(String email) {
+		User existingUser = userRepository.findByEmail(email);
+		if (existingUser != null) {
+			logger.debug("Email is present {}", email);
+			return true;
+		}
+		return false;
+	}
 }

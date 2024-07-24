@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org" class="no-js">
+
+<head>
+	<!-- META DATA -->
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+	<meta name="author" content="">
+	<title>Login Page</title>
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/styles.css}" rel="stylesheet">
+	<link th:href="@{/css/fonts.googleapis.css}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style th:inline="text">
+		body {
+			height: 60vh;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body ng-app="myApp" ng-controller="loginContrl">
+
+	<section>
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-6 bg-primary">
+					<div class="col-md-12">
+						<div class="alert alert-success" role="alert">
+							OTP sent to registred email address.
+						</div>
+						<form>
+							<div class="form-group">
+								<input type="text" placeholder="Enter otp here" class="form-control"
+									ng-model="receivedOpt" required />
+							</div>
+							<div class="container text-center">
+								<button class="btn btn-success" ng-click="verifyOtp();">Verify OTP</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- JavaScript dependencies -->
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/angular.min.js}"></script>
+	<script th:src="@{/js/sweetalert.js}"></script>
+	<script th:src="@{/app/app.js}"></script>
+	<script th:src="@{/app/login.js}"></script>
+</body>
+
+</html>

@@ -42,5 +42,40 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $t
 	$scope.goToSignUpForm = () => {
 		window.location.href = "addUser"
 	}
+
+	$scope.forgotPass = () => {
+		window.location.href = "forgotpass"
+	}
+	$scope.verifyOtp = () => {
+		console.log(" receivedOpt ",$scope.receivedOpt);
+//		window.location.href = "forgotpass"
+	}
+
+	$scope.sendOtp = () => {
+		
+		if(!$scope.regEmail) return ;
+
+		$http({
+			method: "POST",
+			url: 'send_otp/' + $scope.regEmail,
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function(response) {
+			console.log("OTP success", response);
+			sessionStorage.setItem("sentOtp",response.data);
+			if (response.status === 202) {
+				meassgeAlertService.showAlert('Success!',"OTP sent successfully!", 'success');
+				$timeout(() => {
+					$window.location.href = "verifyopt"; // Redirect to dashboard upon successful authentication
+				}, 1000);
+			} else {
+				console.log("Unexpected response status", response.status);
+			}
+		}, function(error) {
+			console.error("Authentication failed", error);
+			meassgeAlertService.showAlert('Error!', error.data.message, 'error');
+		});
+	}
 }
 );
