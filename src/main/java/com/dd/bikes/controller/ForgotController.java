@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dd.bikes.service.IUserService;
+import com.dd.bikes.service.impl.EmailService;
 
 @RestController
 public class ForgotController {
@@ -19,6 +22,12 @@ public class ForgotController {
 //	Use constructor injection
 	@Autowired
 	private IUserService userService;
+
+	@Autowired
+	private EmailService emailService;
+
+	private static final Logger logger = LogManager.getLogger(ForgotController.class);
+
 	Random random = new Random(1000);
 
 	@PostMapping("/send_otp/{email}")
@@ -33,13 +42,18 @@ public class ForgotController {
 		}
 
 //		Generate 6 digit OTP
-
 		int generatedOTP = random.nextInt(999999);
-		System.out.println("Generated OPT " + generatedOTP);
-		
-//		need to sent the opt to mail address
-		
-		
-		return new ResponseEntity<>(generatedOTP, HttpStatus.ACCEPTED);
+
+		logger.info("Generated OPT {}", generatedOTP);
+
+		boolean isOtpSent = this.emailService.sendMail(email, generatedOTP);
+
+		if (isOtpSent) {
+			return new ResponseEntity<>(generatedOTP, HttpStatus.ACCEPTED);
+		}
+
+		response.put("message", "Sending OPT failed.");
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+
 	}
 }

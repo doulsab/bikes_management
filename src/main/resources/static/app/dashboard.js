@@ -24,6 +24,9 @@ myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService) => {
 	$scope.goToAddPage = () => {
 		window.location.href = "add";
 	}
+	$scope.logOut = () => {
+		window.location.href = "login";
+	}
 
 	$scope.editDetails = (id) => {
 		sessionStorage.setItem('bikeId', id);
@@ -59,6 +62,8 @@ myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService) => {
 			meassgeAlertService.showAlert('Error!', 'Failed to delete the bike. Please try again', 'error');
 		});
 	};
+	
+	
 
 
 }
