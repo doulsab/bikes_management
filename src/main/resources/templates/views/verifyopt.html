@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
 	<meta name="author" content="">
-	<title>Login Page</title>
+	<title>OTP|Verification</title>
 	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/css/styles.css}" rel="stylesheet">
 	<link th:href="@{/css/fonts.googleapis.css}" rel="stylesheet">
@@ -25,7 +25,7 @@
 	<section>
 		<div class="container">
 			<div class="row justify-content-center align-items-center">
-				<div class="col-md-6 bg-primary">
+				<div class="col-md-6">
 					<div class="col-md-12">
 						<div class="alert alert-success" role="alert">
 							OTP sent to registred email address.
@@ -33,10 +33,11 @@
 						<form>
 							<div class="form-group">
 								<input type="text" placeholder="Enter otp here" class="form-control"
-									ng-model="receivedOpt" required />
+									ng-model="enteredOTP" ng-class="{'border border-danger':invalidOtp}"/>
 							</div>
 							<div class="container text-center">
 								<button class="btn btn-success" ng-click="verifyOtp();">Verify OTP</button>
+								<button class="btn btn-warning" ng-click="sendOtp(true);"> Re-Send OTP</button>
 							</div>
 						</form>
 					</div>

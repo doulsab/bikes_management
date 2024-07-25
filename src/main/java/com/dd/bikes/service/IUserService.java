@@ -10,6 +10,6 @@ public interface IUserService {
 
 	String authenticate(String username, String password);
 	
-	boolean checkEmailExist(String email);
+	User checkEmailExist(String email);
 
 }

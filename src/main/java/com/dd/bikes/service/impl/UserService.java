@@ -54,12 +54,7 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public boolean checkEmailExist(String email) {
-		User existingUser = userRepository.findByEmail(email);
-		if (existingUser != null) {
-			logger.debug("Email is present {}", email);
-			return true;
-		}
-		return false;
+	public User checkEmailExist(String email) {
+		return userRepository.findByEmail(email);
 	}
 }

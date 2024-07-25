@@ -24,10 +24,7 @@ public class EmailService {
 	private String mailHost;
 
 	@Value("${spring.mail.username}")
-	private String username;
-	
-	@Value("${spring.mail.frommail}")
-	private String fromMail;
+	private String mailFrom;
 
 	@Value("${spring.mail.password}")
 	private String password;
@@ -35,10 +32,10 @@ public class EmailService {
 	@Value("${spring.mail.port}")
 	private String port;
 
-	public boolean sendMail(String to, int generatedOTP) {
+	public boolean sendMail(String to, int generatedOTP, String appUsername) {
 		Properties props = System.getProperties();
 		boolean isMailSent = false;
-		
+
 		// Setting the properties
 		props.put("mail.smtp.host", mailHost);
 		props.put("mail.smtp.port", port);
@@ -49,7 +46,7 @@ public class EmailService {
 		Session session = Session.getInstance(props, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
+				return new PasswordAuthentication(mailFrom, password);
 			}
 		});
 
@@ -57,18 +54,22 @@ public class EmailService {
 			MimeMessage message = new MimeMessage(session);
 
 			// From address
-			message.setFrom(new InternetAddress(fromMail));
+			message.setFrom(new InternetAddress(mailFrom));
 
 			// To address
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 			// Adding Subject
-			String subject = "OTP for resetting the password";
+			String subject = "Password Reset Request";
 			message.setSubject(subject);
 
 			// Adding Message (set content for HTML)
-			String htmlContent = "<h5> OTP for resetting the password is: </h5>" + "<h2 style='color:red;'>"
-					+ generatedOTP + "</h2>";
+			String htmlContent = "<div style='border:1px solid #054663 ; padding:20px;'>" + "Hello "
+					+ "<h2 style='color: orange;'>" + appUsername + ",</h2>"
+					+ "<p>Here is your OTP for resetting the password:</p>" + "<h2 style='color: green;'>"
+					+ generatedOTP + "</h2>"
+					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
+					+ "</div>";
 			message.setContent(htmlContent, "text/html");
 
 			// Send message
@@ -85,7 +86,5 @@ public class EmailService {
 		}
 		return isMailSent;
 	}
-	
-	
-	
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dd.bikes.model.User;
 import com.dd.bikes.service.IUserService;
 import com.dd.bikes.service.impl.EmailService;
 
@@ -28,25 +29,27 @@ public class ForgotController {
 
 	private static final Logger logger = LogManager.getLogger(ForgotController.class);
 
-	Random random = new Random(1000);
+	Random random = new Random();
 
 	@PostMapping("/send_otp/{email}")
 	public ResponseEntity<?> forgotPass(@PathVariable String email) {
 
 		Map<String, String> response = new HashMap<>();
-		boolean exist = userService.checkEmailExist(email);
+		User existing = userService.checkEmailExist(email);
 
-		if (!exist) {
+		if (existing == null) {
 			response.put("message", "Email address is not matched.");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
 		}
 
 //		Generate 6 digit OTP
-		int generatedOTP = random.nextInt(999999);
+		int generatedOTP = 100000 + random.nextInt(900000);
 
 		logger.info("Generated OPT {}", generatedOTP);
+		
+		String appUsername = existing.getUsername();
 
-		boolean isOtpSent = this.emailService.sendMail(email, generatedOTP);
+		boolean isOtpSent = this.emailService.sendMail(email, generatedOTP,appUsername);
 
 		if (isOtpSent) {
 			return new ResponseEntity<>(generatedOTP, HttpStatus.ACCEPTED);

@@ -125,7 +125,7 @@ a:hover {
 	border-radius: 10px;
 	box-shadow: 0px 0px 10px rgb(0, 0, 160);
 	padding: 10px;
-    margin-top: 15px;
+	margin-top: 15px;
 }
 
 @media (max-width: 768px) {
@@ -165,8 +165,8 @@ input {
 }
 
 .login-form {
-	border-radius: 10px  !important;
-	border: 1px solid crimson  !important;
+	border-radius: 10px !important;
+	border: 1px solid crimson !important;
 	min-height: 20rem;
 	margin: 20%;
 	max-width: 50%;
@@ -192,7 +192,7 @@ input {
 .login-password {
 	background: transparent;
 	border: 1px solid crimson;
-	border-radius: 5px  !important;
+	border-radius: 5px !important;
 	border-bottom: 1px solid rgba(white, .5);
 	color: white;
 	display: block;
@@ -227,7 +227,7 @@ input {
 }
 
 .login-submit {
-	border-radius: 10px  !important;
+	border-radius: 10px !important;
 	border: 1px solid crimson;
 	background: transparent;
 	display: block;
@@ -267,5 +267,30 @@ input {
 
 	to {
 		-webkit-filter: grayscale(30%) hue-rotate(360deg);
+	}
+}
+
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.spinner {
+	border: 8px solid rgb(0, 0, 0);
+	border-top: 8px solid rgb(255, 0, 128);
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
 	}
 }
