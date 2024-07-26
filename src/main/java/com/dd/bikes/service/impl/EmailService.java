@@ -64,10 +64,11 @@ public class EmailService {
 			message.setSubject(subject);
 
 			// Adding Message (set content for HTML)
-			String htmlContent = "<div style='border:1px solid #054663 ; padding:20px;'>" + "Hello "
-					+ "<h2 style='color: orange;'>" + appUsername + ",</h2>"
-					+ "<p>Here is your OTP for resetting the password:</p>" + "<h2 style='color: green;'>"
-					+ generatedOTP + "</h2>"
+			String htmlContent = "<div style='border: 5px solid #230491 ; padding:20px;'>" + "Hi!, "
+					+ "<h2 style='color: orange;'>" + appUsername + "</h2>"
+					+ "<p>Here is your OTP for resetting the password:</p>" + "<h2 style='color: green;'>"+ generatedOTP + "</h2>" + 
+					"<span style='color:gray;'>-- Thanks and Regards</span>"
+					+ "        <h4>Support Team</h4>"
 					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
 					+ "</div>";
 			message.setContent(htmlContent, "text/html");
