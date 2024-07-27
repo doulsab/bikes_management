@@ -55,11 +55,11 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $t
 			return;
 		};
 		const sessionOTP = sessionStorage.getItem("sentOtp");
-		
+
 		if (sessionOTP === $scope.enteredOTP) {
 			meassgeAlertService.showAlert('Success!', "OTP verified success!", 'success');
 			$timeout(() => {
-				$window.location.href = "changepassword";
+				$window.location.href = "changePassword";
 			}, 1000);
 		} else {
 			meassgeAlertService.showAlert('Error!', "OTP does not match! please try again...", 'error');
@@ -94,7 +94,7 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $t
 				$scope.loaderDiv = false;
 				$timeout(() => {
 					$window.location.href = "verifyopt"; // Redirect to dashboard upon successful authentication
-				}, 1500);
+				}, 2000);
 			} else {
 				console.log("Unexpected response status", response.status);
 			}
@@ -110,38 +110,64 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $t
 
 // Password reset controller 
 
-myApp.controller('passwordResetCtrl', function($scope, $http) {
+myApp.controller('passwordResetCtrl', function($scope, $http, $window,$timeout) {
 	// Initialize scope variables
 	$scope.invalidPassword = false;
 	$scope.passwordsMismatch = false;
 	$scope.successMessage = '';
 	$scope.errorMessage = '';
+	$scope.showNewPassword = false;
+	$scope.showConfirmPassword = false;
+
+	// Function to toggle password visibility
+	$scope.toggleNewPassword = function() {
+		$scope.showNewPassword = !$scope.showNewPassword;
+	};
+
+	$scope.toggleConfirmPassword = function() {
+		$scope.showConfirmPassword = !$scope.showConfirmPassword;
+	};
 
 	// Function to update password
 	$scope.updatePassword = function() {
 		$scope.invalidPassword = false;
 		$scope.passwordsMismatch = false;
-		$scope.successMessage = '';
+		$scope.successMessage = null;
 		$scope.errorMessage = '';
 
 		// Validate password and confirm password match
 		if ($scope.newPassword !== $scope.confirmPassword) {
 			$scope.passwordsMismatch = true;
+			$scope.errorMessage = "Passwords do not match.";
 			return;
 		}
+		let emailToUpdate = sessionStorage.getItem("regEmail");
 
-		// Make the API call to update the password
-		//        $http.post('/api/update_password', {
-		//            otp: $scope.enteredOTP,
-		//            newPassword: $scope.newPassword
-		//        }).then(function(response) {
-		//            // Handle success
-		//            $scope.successMessage = 'Password updated successfully!';
-		//        }, function(error) {
-		//            // Handle error
-		//            $scope.errorMessage = 'Error updating password. Please try again.';
-		//        });
+		$http({
+			method: "PATCH",
+			url: 'update_password',
+			params: {
+				email: emailToUpdate,
+				password: $scope.newPassword
+			},
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function(response) {
+			console.log(response);
+			$scope.successMessage = response.data.message;
+			// Optionally, redirect or clear session
+			removeSessions();
+			$timeout(() => {
+				$window.location.href = "login";
+			}, 2000);
+		}, function(error) {
+			$scope.errorMessage = error.data.message;
+		});
 	};
-
+	const removeSessions = () => {
+		sessionStorage.removeItem("regEmail");
+		sessionStorage.removeItem("sentOtp");
+	}
 });
 

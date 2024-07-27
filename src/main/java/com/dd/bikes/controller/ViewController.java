@@ -44,4 +44,8 @@ public class ViewController {
 	public String verifyOpt() {
 		return "verifyopt";
 	}
+	@GetMapping("/changePassword")
+	public String updatePass() {
+		return "changepassword";
+	}
 }
