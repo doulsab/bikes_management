@@ -16,6 +16,8 @@ import com.dd.bikes.model.LoginRequest;
 import com.dd.bikes.model.User;
 import com.dd.bikes.service.IUserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
@@ -27,7 +29,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/adduserdetails", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> addUser(@RequestBody User user) {
+	public ResponseEntity<?> addUser(@Valid @RequestBody User user) {
 //		Check the user name already exist or not
 		boolean existingUser = userService.checkUsernameExist(user.getUsername());
 		if (existingUser) {

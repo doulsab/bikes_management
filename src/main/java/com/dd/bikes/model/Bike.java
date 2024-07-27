@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 
 @Table(name = "bikes")
 @Entity
-@Data
-@NoArgsConstructor
+//@Data
+//@NoArgsConstructor
 public class Bike {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,4 +46,85 @@ public class Bike {
 	protected void onUpdate() {
 		modifiedDate = new Date();
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getBikeType() {
+		return bikeType;
+	}
+
+	public void setBikeType(String bikeType) {
+		this.bikeType = bikeType;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Bike(String model, String manufacturer, int year, double price, String bikeType, Date createdDate,
+			Date modifiedDate) {
+		super();
+		this.model = model;
+		this.manufacturer = manufacturer;
+		this.year = year;
+		this.price = price;
+		this.bikeType = bikeType;
+		this.createdDate = createdDate;
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Bike() {
+		super();
+	}
+
 }
