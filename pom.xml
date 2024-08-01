@@ -30,6 +30,7 @@
 		<url />
 	</scm>
 	<properties>
+		<configuration-finalName>bikes_management</configuration-finalName>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -145,6 +146,16 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+
+			<!--To build the war to package/build path-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${project.basedir}/package/build</outputDirectory>
+					<finalName>${project.name}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

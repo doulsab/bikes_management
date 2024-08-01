@@ -2,44 +2,52 @@
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org" class="no-js">
 
 <head>
-	<meta charset="utf-8">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<title>Home</title>
-	<meta content="" name="description">
-	<meta content="" name="keywords">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Home</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
 
-	<!-- Favicons -->
-	<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
 
-	<!-- Fonts -->
-	<link href="https://fonts.googleapis.com" rel="preconnect">
-	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
 
-	<!-- Vendor CSS Files -->
-	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-	<link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-	<link th:href="@{/vendor/aos/aos.css}" rel="stylesheet">
-	<link th:href="@{/vendor/animate.css/animate.min.css}" rel="stylesheet">
-	<link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-	<link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
+<link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}"
+	rel="stylesheet">
+<link th:href="@{/vendor/aos/aos.css}" rel="stylesheet">
+<link th:href="@{/vendor/animate.css/animate.min.css}" rel="stylesheet">
+<link th:href="@{/vendor/glightbox/css/glightbox.min.css}"
+	rel="stylesheet">
+<link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
 
-	<!-- Main CSS File -->
-	<link th:href="@{/css/main.css}" rel="stylesheet">
+<!-- Main CSS File -->
+<link th:href="@{/css/main.css}" rel="stylesheet">
 <style>
-	.hero {
-			background: url([[@{/images/login_4.jpg}]]) no-repeat center center fixed;
-			background-size: cover;
-		}
+.hero {
+	background: url([[@{/images/login_2.jpg}]]) no-repeat center center
+		fixed;
+	background-size: cover;
+}
 </style>
 </head>
 
-<body class="index-page">
+<body class="index-page" ng-app="myApp" ng-controller="indexContrl">
 
 	<header id="header" class="header d-flex align-items-center fixed-top">
-		<div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+		<div
+			class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+			<div class="logo">
+				<!-- Your logo and heading here -->
+			</div>
 			<nav id="navmenu" class="navmenu">
 				<ul>
 					<li><a href="#hero" class="active">Home</a></li>
@@ -48,58 +56,72 @@
 				</ul>
 				<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 			</nav>
-
 		</div>
 	</header>
+
 
 	<main class="main">
 
 		<!-- Hero Section -->
 		<section id="hero" class="hero section dark-background">
-			<div id="hero-carousel" data-bs-interval="5000" class="container carousel carousel-fade"
-				data-bs-ride="carousel">
+			<div id="hero-carousel" data-bs-interval="5000"
+				class="container carousel carousel-fade" data-bs-ride="carousel">
 				<!-- Slide 1 -->
 				<div class="carousel-item active">
 					<div class="carousel-container">
-						<h2 class="animate__animated animate__fadeInDown">Welcome to <span>Bikes Management
-								System</span></h2>
-						<p class="animate__animated animate__fadeInUp">Manage and track your bike inventory efficiently.
-							Add, update, and view bike details with ease.</p>
-						<a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Learn
+						<h2 class="animate__animated animate__fadeInDown">
+							Welcome to <span>Bikes Management System</span>
+						</h2>
+						<p class="animate__animated animate__fadeInUp">Manage and
+							track your bike inventory efficiently. Add, update, and view bike
+							details with ease.</p>
+						<a href="#about"
+							class="btn-get-started animate__animated animate__fadeInUp scrollto">Learn
 							More</a>
 					</div>
 				</div>
 				<!-- Slide 2 -->
 				<div class="carousel-item">
 					<div class="carousel-container">
-						<h2 class="animate__animated animate__fadeInDown">Seamless Management</h2>
-						<p class="animate__animated animate__fadeInUp">Our system provides a user-friendly interface for
-							admins to manage bike data and for users to view details.</p>
-						<a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Get
+						<h2 class="animate__animated animate__fadeInDown">Seamless
+							Management</h2>
+						<p class="animate__animated animate__fadeInUp">Our system
+							provides a user-friendly interface for admins to manage bike data
+							and for users to view details.</p>
+						<a href="#about"
+							class="btn-get-started animate__animated animate__fadeInUp scrollto">Get
 							Started</a>
 					</div>
 				</div>
 				<!-- Slide 3 -->
 				<div class="carousel-item">
 					<div class="carousel-container">
-						<h2 class="animate__animated animate__fadeInDown">Comprehensive Features</h2>
-						<p class="animate__animated animate__fadeInUp">Explore features like bike details management,
-							user sign-up, and more, all backed by a robust backend system.</p>
-						<a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Discover
+						<h2 class="animate__animated animate__fadeInDown">Comprehensive
+							Features</h2>
+						<p class="animate__animated animate__fadeInUp">Explore
+							features like bike details management, user sign-up, and more,
+							all backed by a robust backend system.</p>
+						<a href="#about"
+							class="btn-get-started animate__animated animate__fadeInUp scrollto">Discover
 							More</a>
 					</div>
 				</div>
-				<a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-				</a>
-				<a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
-					<span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+				<a class="carousel-control-prev" href="#hero-carousel" role="button"
+					data-bs-slide="prev"> <span
+					class="carousel-control-prev-icon bi bi-chevron-left"
+					aria-hidden="true"></span>
+				</a> <a class="carousel-control-next" href="#hero-carousel"
+					role="button" data-bs-slide="next"> <span
+					class="carousel-control-next-icon bi bi-chevron-right"
+					aria-hidden="true"></span>
 				</a>
 			</div>
-			<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-				viewBox="0 24 150 28" preserveAspectRatio="none">
+			<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28"
+				preserveAspectRatio="none">
 				<defs>
-					<path id="wave-path" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+					<path id="wave-path"
+					d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
 					</path>
 				</defs>
 				<g class="wave1">
@@ -123,24 +145,28 @@
 			</div>
 			<div class="container">
 				<div class="row gy-4">
-					<div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-						<p>Our Bike Management System provides a comprehensive solution for managing bike inventory.
-							With an easy-to-use interface, admins can add, update, and manage bike details efficiently,
-							while users can view the bike details.</p>
+					<div class="col-lg-6 content" data-aos="fade-up"
+						data-aos-delay="100">
+						<p>Our Bike Management System provides a comprehensive
+							solution for managing bike inventory. With an easy-to-use
+							interface, admins can add, update, and manage bike details
+							efficiently, while users can view the bike details.</p>
 						<ul>
-							<li><i class="bi bi-check2-circle"></i> <span>Efficient bike management with an intuitive
-									interface.</span></li>
-							<li><i class="bi bi-check2-circle"></i> <span>Real-time updates and data management.</span>
-							</li>
-							<li><i class="bi bi-check2-circle"></i> <span>Seamless integration with MySQL
-									database.</span></li>
+							<li><i class="bi bi-check2-circle"></i> <span>Efficient
+									bike management with an intuitive interface.</span></li>
+							<li><i class="bi bi-check2-circle"></i> <span>Real-time
+									updates and data management.</span></li>
+							<li><i class="bi bi-check2-circle"></i> <span>Seamless
+									integration with MySQL database.</span></li>
 						</ul>
 					</div>
 					<div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-						<p>Whether you're an admin managing bike details or a user looking to view available bikes, our
-							system has the features you need. From adding new bike information to checking existing
+						<p>Whether you're an admin managing bike details or a user
+							looking to view available bikes, our system has the features you
+							need. From adding new bike information to checking existing
 							details, we make bike management simple and effective.</p>
-						<a href="#" class="read-more"><span>Learn More</span><i class="bi bi-arrow-right"></i></a>
+						<a href="#" class="read-more"><span>Learn More</span><i
+							class="bi bi-arrow-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -159,49 +185,43 @@
 						<div class="custom-accordion" id="accordion-faq">
 							<div class="accordion-item">
 								<h2 class="mb-0">
-									<button class="btn btn-link" type="button" data-bs-toggle="collapse"
-										data-bs-target="#collapse-faq-1">
-										How do I add a new bike to the system?
-									</button>
+									<button class="btn btn-link" type="button"
+										data-bs-toggle="collapse" data-bs-target="#collapse-faq-1">
+										How do I add a new bike to the system?</button>
 								</h2>
-								<div id="collapse-faq-1" class="collapse show" aria-labelledby="headingOne"
-									data-parent="#accordion-faq">
-									<div class="accordion-body">
-										As an admin, you can add new bikes through the admin panel. Simply fill in the
-										required details such as bike model, type, and specifications.
-									</div>
+								<div id="collapse-faq-1" class="collapse show"
+									aria-labelledby="headingOne" data-parent="#accordion-faq">
+									<div class="accordion-body">As an admin, you can add new
+										bikes through the admin panel. Simply fill in the required
+										details such as bike model, type, and specifications.</div>
 								</div>
 							</div>
 							<div class="accordion-item">
 								<h2 class="mb-0">
-									<button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
-										data-bs-target="#collapse-faq-2">
-										How can users view bike details?
-									</button>
+									<button class="btn btn-link collapsed" type="button"
+										data-bs-toggle="collapse" data-bs-target="#collapse-faq-2">
+										How can users view bike details?</button>
 								</h2>
-								<div id="collapse-faq-2" class="collapse" aria-labelledby="headingTwo"
-									data-parent="#accordion-faq">
-									<div class="accordion-body">
-										Users can view bike details on the main page where bike information is displayed
-										in an organized manner. They can browse through available bikes and see detailed
-										specs.
-									</div>
+								<div id="collapse-faq-2" class="collapse"
+									aria-labelledby="headingTwo" data-parent="#accordion-faq">
+									<div class="accordion-body">Users can view bike details
+										on the main page where bike information is displayed in an
+										organized manner. They can browse through available bikes and
+										see detailed specs.</div>
 								</div>
 							</div>
 							<div class="accordion-item">
 								<h2 class="mb-0">
-									<button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
-										data-bs-target="#collapse-faq-3">
-										How do I register as an admin?
-									</button>
+									<button class="btn btn-link collapsed" type="button"
+										data-bs-toggle="collapse" data-bs-target="#collapse-faq-3">
+										How do I register as an admin?</button>
 								</h2>
-								<div id="collapse-faq-3" class="collapse" aria-labelledby="headingThree"
-									data-parent="#accordion-faq">
-									<div class="accordion-body">
-										To register as an admin, you need to sign up through the admin registration
-										page. Once registered, you will have access to the admin panel to manage bike
-										details.
-									</div>
+								<div id="collapse-faq-3" class="collapse"
+									aria-labelledby="headingThree" data-parent="#accordion-faq">
+									<div class="accordion-body">To register as an admin, you
+										need to sign up through the admin registration page. Once
+										registered, you will have access to the admin panel to manage
+										bike details.</div>
 								</div>
 							</div>
 						</div>
@@ -222,56 +242,61 @@
 			<div class="container" data-aos="fade" data-aos-delay="100">
 				<div class="row gy-4">
 					<div class="col-lg-4">
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+						<div class="info-item d-flex" data-aos="fade-up"
+							data-aos-delay="200">
 							<i class="bi bi-geo-alt flex-shrink-0"></i>
 							<div>
 								<h3>Address</h3>
-								<p>Bengaluru. 560060.</p>
+								<p>Bengaluru - 560060.</p>
 							</div>
 						</div>
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+						<div class="info-item d-flex" data-aos="fade-up"
+							data-aos-delay="300">
 							<i class="bi bi-telephone flex-shrink-0"></i>
 							<div>
 								<h3>Call Us</h3>
 								<p>+91 080 5548 8575</p>
 							</div>
 						</div>
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+						<div class="info-item d-flex" data-aos="fade-up"
+							data-aos-delay="400">
 							<i class="bi bi-envelope flex-shrink-0"></i>
 							<div>
 								<h3>Email Us</h3>
-								<p>info@gmail.com</p>
+								<p>ddtechnosoftindia9181@gmail.com</p>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-8">
-						<form method="post" class="email-form" data-aos="fade-up" data-aos-delay="200">
-							<div class="row gy-4">
+					<div class="col-lg-8 contact">
+						<div data-aos="fade-up" data-aos-delay="200">
+							<div class="row gy-4 email-form">
 								<div class="col-md-6">
-									<input type="text" name="name" class="form-control" placeholder="Your Name"
-										required="">
+									<input type="text" name="name" class="form-control"
+										placeholder="Your Name"  ng-model="custName" required>
 								</div>
 								<div class="col-md-6">
-									<input type="email" class="form-control" name="email" placeholder="Your Email"
-										required="">
+									<input type="email" class="form-control" name="email"
+										placeholder="Your Email" ng-model="custEmail" required>
 								</div>
 								<div class="col-md-12">
-									<input type="text" class="form-control" name="subject" placeholder="Subject"
-										required="">
+									<input type="text" class="form-control" name="subject"
+										placeholder="Subject"  ng-model="custSubject" required>
 								</div>
 								<div class="col-md-12">
-									<textarea class="form-control" name="message" rows="6" placeholder="Message"
-										required=""></textarea>
+									<textarea class="form-control" name="message" rows="6"
+										placeholder="Message"  ng-model="custMessage" required></textarea>
 								</div>
 								<div class="col-md-12 text-center">
-									<div class="loading">Loading</div>
 									<div class="error-message"></div>
-									<div class="sent-message">Your message has been sent. Thank you!</div>
-									<button type="submit">Send Message</button>
+									<div class="sent-message" ng-show="successMassage">Your
+										message has been sent. Thank you!</div>
+									<button type="submit" ng-click="sendRequestMail();">Send
+										Message</button>
 								</div>
 							</div>
-						</form>
+						</div>
 					</div>
+
 				</div>
 			</div>
 		</section>
@@ -285,24 +310,24 @@
 			<h3 class="sitename">DD</h3>
 			<p></p>
 			<div class="social-links d-flex justify-content-center">
-				<a href=""><i class="bi bi-twitter-x"></i></a>
-				<a href=""><i class="bi bi-facebook"></i></a>
-				<a href=""><i class="bi bi-instagram"></i></a>
-				<a href=""><i class="bi bi-skype"></i></a>
+				<a href=""><i class="bi bi-twitter-x"></i></a> <a href=""><i
+					class="bi bi-facebook"></i></a> <a href=""><i
+					class="bi bi-instagram"></i></a> <a href=""><i class="bi bi-skype"></i></a>
 				<a href=""><i class="bi bi-linkedin"></i></a>
 			</div>
 			<div class="container">
 				<div class="copyright">
-					<span>Copyright</span> <strong class="px-1 sitename">DD</strong> <span>All Rights
-						Reserved</span>
+					<span>Copyright</span> <strong class="px-1 sitename">DD</strong> <span>All
+						Rights Reserved</span>
 				</div>
 			</div>
 		</div>
 	</footer>
 
 	<!-- Scroll Top -->
-	<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-			class="bi bi-arrow-up-short"></i></a>
+	<a href="#" id="scroll-top"
+		class="scroll-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Preloader -->
 	<div id="preloader"></div>
@@ -316,6 +341,10 @@
 	<script th:src="@{/vendor/swiper/swiper-bundle.min.js}"></script>
 
 	<!-- Main JS File -->
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/js/angular.min.js}"></script>
+	<script th:src="@{/app/app.js}"></script>
+	<script th:src="@{/app/index.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
 </body>
 

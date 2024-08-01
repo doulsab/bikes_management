@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.dd.bikes.model.RequestMailForm;
+
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -25,6 +27,9 @@ public class EmailService {
 
 	@Value("${spring.mail.username}")
 	private String mailFrom;
+
+	@Value("${spring.mail.admin}")
+	private String adminMail;
 
 	@Value("${spring.mail.password}")
 	private String password;
@@ -66,8 +71,8 @@ public class EmailService {
 			// Adding Message (set content for HTML)
 			String htmlContent = "<div style='border: 5px solid #9D00FF ; padding:20px;'>" + "Hi!, "
 					+ "<h2 style='color: orange;'>" + appUsername + "</h2>"
-					+ "<p>Here is your OTP for resetting the password:</p>" + "<h2 style='color: green;'>"+ generatedOTP + "</h2>" + 
-					"<span style='color:gray;'>-- Thanks and Regards</span>"
+					+ "<p>Here is your OTP for resetting the password:</p>" + "<h2 style='color: green;'>"
+					+ generatedOTP + "</h2>" + "<span style='color:gray;'>-- Thanks and Regards</span>"
 					+ "        <h4>Support Team</h4>"
 					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
 					+ "</div>";
@@ -84,6 +89,59 @@ public class EmailService {
 			mex.printStackTrace();
 			isMailSent = false;
 			logger.error("Error while sending email: {}", mex.getMessage());
+		}
+		return isMailSent;
+	}
+
+	public boolean sendFormSubmissionEmail(RequestMailForm formData) {
+		Properties props = System.getProperties();
+		boolean isMailSent = false;
+
+		// Setting the properties
+		props.put("mail.smtp.host", mailHost);
+		props.put("mail.smtp.port", port);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true"); // Use SSL for port 465
+
+		// Session Object
+		Session session = Session.getInstance(props, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(mailFrom, password);
+			}
+		});
+
+		try {
+			MimeMessage message = new MimeMessage(session);
+
+			message.setFrom(new InternetAddress(mailFrom));
+
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(adminMail));
+
+			String subject = "New Service Request from Website User";
+			message.setSubject(subject);
+
+			// Adding Message (set content for HTML)
+			String htmlContent = "<div style='border: 5px solid #9D00FF ; padding:20px;'>"
+					+ "<h2>New Service Request</h2>" + "<p><strong>Name:</strong> " + formData.getName() + "</p>"
+					+ "<p><strong>Email:</strong> " + formData.getEmail() + "</p>" + "<p><strong>Subject:</strong> "
+					+ formData.getSubject() + "</p>" + "<p><strong>Message:</strong></p>" + "<p>"
+					+ formData.getMessage() + "</p>"
+					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
+					+ "</div>";
+			message.setContent(htmlContent, "text/html");
+
+			// Send message
+			Transport.send(message);
+
+			// Log info
+			logger.info("Email sent successfully...");
+			isMailSent = true;
+
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+			logger.error("Error while sending email: {}", mex.getMessage());
+			isMailSent = false;
 		}
 		return isMailSent;
 	}
