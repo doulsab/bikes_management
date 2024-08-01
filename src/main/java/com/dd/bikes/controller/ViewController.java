@@ -8,7 +8,7 @@ public class ViewController {
 
 	@GetMapping("/")
 	public String dashboardPage() {
-		return "login";
+		return "index";
 	}
 
 	@GetMapping("/login")
@@ -47,5 +47,9 @@ public class ViewController {
 	@GetMapping("/changePassword")
 	public String updatePass() {
 		return "changepassword";
+	}
+	@GetMapping("/header")
+	public String navBar() {
+		return "header";
 	}
 }

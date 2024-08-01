@@ -28,6 +28,7 @@ public class Webconfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
 		registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
 		registry.addResourceHandler("/app/**").addResourceLocations("classpath:/static/app/");
+		registry.addResourceHandler("/vendor/**").addResourceLocations("classpath:/static/vendor/");
 	}
 
 	@Bean
