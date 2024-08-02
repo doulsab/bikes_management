@@ -10,6 +10,10 @@ public class ViewController {
 	public String dashboardPage() {
 		return "index";
 	}
+	@GetMapping("/index")
+	public String dashboardPage2() {
+		return "index";
+	}
 
 	@GetMapping("/login")
 	public String indexPage() {

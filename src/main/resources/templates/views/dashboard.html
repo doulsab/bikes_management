@@ -1,108 +1,81 @@
+<!--<html lang="en-US" xmlns:th="http://www.thymeleaf.org" class="no-js">-->
+	<!--<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">-->
 <!DOCTYPE html>
-<html lang="en-US" xmlns:th="http://www.thymeleaf.org" class="no-js">
-
+<html lang="en">
 <head>
-	<!-- META DATA -->
-	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
-	<meta name="author" content="">
-	<title>Dashboard</title>
-	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	<link th:href="@{/css/styles.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Bikes Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
-<body ng-app="myApp" ng-controller="dashboardCtrl" ng-init="onload();">
-	<div class="container" ng-cloak> 
-		<button type="button" class="btn btn-danger btn-sm" ng-click="logOut()">
-			<i class="fas fa-sign-out-alt"></i> Log Out
-		</button>
-
-		<div class="header-dashboard ">
-			<h2 class="text-primary text-center">Bikes Dashboard</h2>
-			<table class="table table-striped table-bordered">
-				<caption>List of Bikes</caption>
-				<input class=" m-2 float-right" type="search" ng-model="searchText" placeholder="Search ..." />
-				<thead class="table-dark">
-					<tr>
-						<th>SL.no</th>
-						<th>Model Name</th>
-						<th>Manufacturer</th>
-						<th>Year of Manufacturer</th>
-						<th>Type of Bike</th>
-						<th>Price (INR)</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="bike in bikes | filter : searchText">
-						<td>{{$index + 1}}</td>
-						<!-- SL.no -->
-						<td>{{bike.model}}</td>
-						<!-- Model Name -->
-						<td>{{bike.manufacturer}}</td>
-						<!-- Manufacturer -->
-						<td>{{bike.year}}</td>
-						<!-- Year of Manufacturer -->
-						<td>{{bike.bikeType}}</td>
-						<!-- Type of Bike -->
-						<td>{{bike.price}}</td>
-						<!-- Price (INR) -->
-						<td>
-							<button class="btn btn-sm btn-info" title="Edit" ng-click="editDetails(bike.id);">
-								<i class="fas fa-pencil-alt"></i>
-							</button>
-							<button class="btn btn-sm btn-danger" title="Delete" ng-click="openDeleteModel(bike.id);">
-								<i class="fas fa-trash"></i>
-							</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<!-- Delete Confirmation Modal -->
-			<div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"
-								ng-click="closeModel();">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							Are you sure you want to delete this bike?
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal"
-								ng-click="closeModel();">No</button>
-							<button type="button" class="btn btn-danger" ng-click="deleteBike();">Yes</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div>
-				<!-- Button to add new bike -->
-				<button type="button" class="btn btn-success btn-md" ng-click="goToAddPage()" title="Add New Bike">
-					<i class="fas fa-plus"></i> Add Bike
-				</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- JavaScript dependencies -->
-	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-	<script th:src="@{/js/popper.min.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
-	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/js/angular.min.js}"></script>
-	<script th:src="@{/js/sweetalert.js}"></script>
-	<script th:src="@{/app/app.js}"></script>
-	<script th:src="@{/app/dashboard.js}"></script>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Manage Bikes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <h1 class="h2">Dashboard</h1>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Bikes</h5>
+                                <p class="card-text">Number of bikes available: 150</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Users</h5>
+                                <p class="card-text">Total active users: 75</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Pending Requests</h5>
+                                <p class="card-text">Pending service requests: 5</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

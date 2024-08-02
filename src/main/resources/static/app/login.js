@@ -46,6 +46,9 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $t
 	$scope.forgotPass = () => {
 		$window.location.href = "forgotpass";
 	}
+	$scope.homePage = () => {
+		$window.location.href = "index";
+	}
 	$scope.verifyOtp = () => {
 		$scope.invalidOtp = false;
 

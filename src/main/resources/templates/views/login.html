@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="en-US" xmlns:th="http://www.thymeleaf.org" class="no-js">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<!-- META DATA -->
-	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
-	<meta name="author" content="">
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
 	<title>Login Page</title>
-	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-	<link th:href="@{/css/styles.css}" rel="stylesheet">
-	<link th:href="@{/css/fonts.googleapis.css}" rel="stylesheet">
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.gstatic.com" rel="preconnect">
+
+	<!-- Vendor CSS Files -->
+	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	<style th:inline="text">
+	<!-- Template Main CSS File -->
+	<link th:href="@{/css/styles.css}" rel="stylesheet">
+
+	<style>
 		body {
-			/*background: url([[@{/images/login_4.jpg}]]) no-repeat center center fixed;
-			background-size: cover;*/
 			height: 60vh;
 			width: 100%;
 		}
@@ -34,41 +42,91 @@
 </head>
 
 <body ng-app="myApp" ng-controller="loginContrl">
-	<div class="container" ng-cloak>
-		<div class="login-form">
-			<p class="login-text">
-				<span class="fa-stack fa-lg">
-					<i class="fas fa-circle fa-stack-2x"></i>
-					<i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-				</span>
-			</p>
-			<input type="text" ng-model="username" class="login-username needsvalidation" autofocus="true"
-				placeholder="Enter username" />
-			<input type="password" ng-model="password" class="login-password" required="true"
-				placeholder="Enter password" />
+	<main>
+		<div class="container" ng-cloak>
+			<section
+				class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-			<div class="button-container text-center">
-				<button class=" buttons btn border border-success text-success font-weight-bold" ng-click="checkAuth();">
-					<i class="fas fa-sign-in-alt"></i> Sign In
-				</button>
-				<button class=" buttons btn border border-primary text-primary font-weight-bold" ng-click="goToSignUpForm();">
-					<i class="fas fa-user-plus"></i> Sign Up
-				</button>
-				<button class="buttons btn border border-info text-danger font-weight-bold" ng-click="forgotPass();">
-					<i class="fas fa-key"></i> Forgot Password ?
-				</button>
-			</div>
+							<div class="card mb-3">
+
+								<div class="card-body">
+
+									<div class="pt-4 pb-2">
+										<h5 class="card-title text-center pb-0 fs-4">
+
+											<a href="" ng-click="homePage();"
+												class="logo d-flex align-items-center w-auto">
+												Bikes Management System.
+											</a>
+										</h5>
+									</div>
+
+									<form class="row g-3 needs-validation" novalidate>
+										<div class="col-12">
+											<label for="yourUsername" class="form-label">Username</label>
+											<div class="input-group has-validation">
+												<span class="input-group-text" id="inputGroupPrepend">@</span>
+												<input type="text" ng-model="username" class="form-control"
+													id="yourUsername" placeholder="Enter your username...">
+											</div>
+										</div>
+
+										<div class="col-12">
+											<label for="yourPassword" class="form-label">Password</label>
+											<input type="password" ng-model="password" class="form-control"
+												id="yourPassword" placeholder="Enter your password...">
+										</div>
+
+										<div class="col-12">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" name="remember"
+													value="true" id="rememberMe">
+												<label class="form-check-label" for="rememberMe">Remember me</label>
+											</div>
+										</div>
+										<div class="col-12">
+											<button class="btn btn-primary w-100" type="submit"
+												ng-click="checkAuth()">Login</button>
+										</div>
+										<div class="col-12 text-center">
+											<div class="d-flex justify-content-center">
+												<p class="small mb-0 me-3">
+													<a ng-click="goToSignUpForm()" href=""
+														class="d-flex align-items-center">
+														<i class="fas fa-user-plus me-2"></i> Create an account
+													</a>
+												</p>
+												<p class="small mb-0">
+													<a ng-click="forgotPass()" href=""
+														class="d-flex align-items-center">
+														<i class="fas fa-key me-2"></i> Forgot Password?
+													</a>
+												</p>
+											</div>
+										</div>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</section>
+
 		</div>
+	</main><!-- End #main -->
 
-	</div>
-	<!-- JavaScript dependencies -->
-	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
-	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<!-- Template Main JS File -->
 	<script th:src="@{/js/angular.min.js}"></script>
 	<script th:src="@{/js/sweetalert.js}"></script>
 	<script th:src="@{/app/app.js}"></script>
 	<script th:src="@{/app/login.js}"></script>
+
 </body>
 
 </html>

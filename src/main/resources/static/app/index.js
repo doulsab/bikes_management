@@ -1,5 +1,5 @@
 
-myApp.controller('indexContrl', ($scope, $http, meassgeAlertService) => {
+myApp.controller('indexContrl', ($scope, $http, meassgeAlertService,$window) => {
 
 	$scope.successMessage = "Your message has been sent. Thank you!";
 	$scope.failedMasg = "Please fill in all the details before sending the mail.";
@@ -43,5 +43,9 @@ myApp.controller('indexContrl', ($scope, $http, meassgeAlertService) => {
 		});
 
 	};
+	$scope.goToLogin = () =>{
+		$window.location.href ="login";
+	}
+	
 });
 
