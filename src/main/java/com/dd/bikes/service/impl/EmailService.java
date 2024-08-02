@@ -22,6 +22,9 @@ import jakarta.mail.internet.MimeMessage;
 public class EmailService {
 
 	private static final Logger logger = LogManager.getLogger(EmailService.class);
+	
+	private String CONTENTTYPE = "text/html";
+	
 	@Value("${spring.mail.host}")
 	private String mailHost;
 
@@ -76,7 +79,7 @@ public class EmailService {
 					+ "        <h4>Support Team</h4>"
 					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
 					+ "</div>";
-			message.setContent(htmlContent, "text/html");
+			message.setContent(htmlContent, CONTENTTYPE);
 
 			// Send message
 			Transport.send(message);
@@ -112,30 +115,47 @@ public class EmailService {
 		});
 
 		try {
-			MimeMessage message = new MimeMessage(session);
-
-			message.setFrom(new InternetAddress(mailFrom));
-
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(adminMail));
-
-			String subject = "New Service Request from Website User";
-			message.setSubject(subject);
+			// Create and send email to admin
+			MimeMessage messageToAdmin = new MimeMessage(session);
+			messageToAdmin.setFrom(new InternetAddress(mailFrom));
+			messageToAdmin.addRecipient(Message.RecipientType.TO, new InternetAddress(adminMail));
+			String subjectForAdmin = "New Service Request from Website User";
+			messageToAdmin.setSubject(subjectForAdmin);
 
 			// Adding Message (set content for HTML)
-			String htmlContent = "<div style='border: 5px solid #9D00FF ; padding:20px;'>"
+			String htmlContentForAdmin = "<div style='border: 5px solid #9D00FF ; padding:20px;'>"
 					+ "<h2>New Service Request</h2>" + "<p><strong>Name:</strong> " + formData.getName() + "</p>"
 					+ "<p><strong>Email:</strong> " + formData.getEmail() + "</p>" + "<p><strong>Subject:</strong> "
 					+ formData.getSubject() + "</p>" + "<p><strong>Message:</strong></p>" + "<p>"
 					+ formData.getMessage() + "</p>"
 					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
 					+ "</div>";
-			message.setContent(htmlContent, "text/html");
+			messageToAdmin.setContent(htmlContentForAdmin, CONTENTTYPE);
 
-			// Send message
-			Transport.send(message);
+			// Send email to admin
+			Transport.send(messageToAdmin);
+
+			// Create and send email to requester
+			MimeMessage messageToRequester = new MimeMessage(session);
+			messageToRequester.setFrom(new InternetAddress(mailFrom));
+			messageToRequester.addRecipient(Message.RecipientType.TO, new InternetAddress(formData.getEmail()));
+			String subjectForRequester = "Confirmation of Your Service Request";
+			messageToRequester.setSubject(subjectForRequester);
+
+			// Adding Message (set content for HTML)
+			String htmlContentForRequester = "<div style='border: 5px solid #9D00FF ; padding:20px;'>"
+					+ "<h2>Thank You for Your Request</h2>" + "<p>Dear " + formData.getName() + ",</p>"
+					+ "<p>Thank you for reaching out to us. We have received your service request and our team will get back to you shortly.</p>"
+					+ "<p>If you have any further questions, please do not hesitate to contact us at <a href='mailto:" + mailFrom + "'>" + mailFrom + "</a>.</p>"
+					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
+					+ "</div>";
+			messageToRequester.setContent(htmlContentForRequester, CONTENTTYPE);
+
+			// Send email to requester
+			Transport.send(messageToRequester);
 
 			// Log info
-			logger.info("Email sent successfully...");
+			logger.info("Emails sent successfully...");
 			isMailSent = true;
 
 		} catch (MessagingException mex) {

@@ -1,12 +1,18 @@
 
-myApp.controller('indexContrl', ($scope, $http) => {
+myApp.controller('indexContrl', ($scope, $http, meassgeAlertService) => {
 
-	$scope.successMassage = false;
+	$scope.successMessage = "Your message has been sent. Thank you!";
+	$scope.failedMasg = "Please fill in all the details before sending the mail.";
 
 	$scope.sendRequestMail = function() {
+		$scope.successMassage = false;
+		$scope.isInValidFrom = false;
+		$scope.isMessageSent = false;
 
-		if (!$scope.custName && !$scope.custEmail && !$scope.custSubject && !$scope.custMessage) {
+		if (!$scope.custName || !$scope.custEmail || !$scope.custSubject || !$scope.custMessage) {
 			console.log("hsaos");
+			meassgeAlertService.showAlert('Warning!', $scope.failedMasg, 'warning');
+			$scope.isInValidFrom = true;
 			return;
 		}
 
@@ -26,11 +32,14 @@ myApp.controller('indexContrl', ($scope, $http) => {
 			}
 		}).then(function(response) {
 			if (response.status === 202) {
-				$scope.successMassage = true;
+				$scope.custName = null;
+				$scope.custEmail = null;
+				$scope.custSubject = null;
+				$scope.custMessage = null;
+				meassgeAlertService.showAlert('Success!', $scope.successMessage, 'success');
 			}
-			console.log("Massage Send success", response);
 		}, function(error) {
-			console.error("Massage Send failed", error);
+			meassgeAlertService.showAlert('Error!', "Massage Send failed", 'error');
 		});
 
 	};

@@ -155,7 +155,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<outputDirectory>${project.basedir}/package/build</outputDirectory>
-					<finalName>${project.name}</finalName>
+					<warName>${project.artifactId}</warName>
 				</configuration>
 			</plugin>
 		</plugins>
