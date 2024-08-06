@@ -97,7 +97,7 @@ public class EmailService {
 	}
 
 	public boolean sendFormSubmissionEmail(RequestMailForm formData) {
-		Properties props = System.getProperties();
+		Properties props = new Properties();
 		boolean isMailSent = false;
 
 		// Setting the properties
@@ -123,7 +123,7 @@ public class EmailService {
 			messageToAdmin.setSubject(subjectForAdmin);
 
 			// Adding Message (set content for HTML)
-			String htmlContentForAdmin = "<div style='border: 5px solid #9D00FF ; padding:20px;'>"
+			String htmlContentForAdmin = "<div style='border: 3px solid ##C70039 ; padding:20px; border-radius: 15px:'>"
 					+ "<h2>New Service Request</h2>" + "<p><strong>Name:</strong> " + formData.getName() + "</p>"
 					+ "<p><strong>Email:</strong> " + formData.getEmail() + "</p>" + "<p><strong>Subject:</strong> "
 					+ formData.getSubject() + "</p>" + "<p><strong>Message:</strong></p>" + "<p>"
@@ -134,6 +134,7 @@ public class EmailService {
 
 			// Send email to admin
 			Transport.send(messageToAdmin);
+			logger.info("Admin mail sent successfully...");
 
 			// Create and send email to requester
 			MimeMessage messageToRequester = new MimeMessage(session);
@@ -143,10 +144,11 @@ public class EmailService {
 			messageToRequester.setSubject(subjectForRequester);
 
 			// Adding Message (set content for HTML)
-			String htmlContentForRequester = "<div style='border: 5px solid #9D00FF ; padding:20px;'>"
-					+ "<h2>Thank You for Your Request</h2>" + "<p>Dear " + formData.getName() + ",</p>"
+			String htmlContentForRequester = "<div style='border: 3px solid #00FF00 ; padding:20px; border-radius: 15px:'>"
+					+ "<p style='color:blue'>Dear " + formData.getName() + ",</p>"
 					+ "<p>Thank you for reaching out to us. We have received your service request and our team will get back to you shortly.</p>"
-					+ "<p>If you have any further questions, please do not hesitate to contact us at <a href='mailto:" + mailFrom + "'>" + mailFrom + "</a>.</p>"
+					+ "<p>If you have any further questions, please do not hesitate to contact us at "
+					+ "<a href='mailto:" + adminMail + "'>Tech Support Admin</a>.</p>"
 					+ "<p style='color: red;'>Note: This is a system-generated email. Please do not reply.</p>"
 					+ "</div>";
 			messageToRequester.setContent(htmlContentForRequester, CONTENTTYPE);
@@ -155,7 +157,7 @@ public class EmailService {
 			Transport.send(messageToRequester);
 
 			// Log info
-			logger.info("Emails sent successfully...");
+			logger.info("Requester email sent successfully...");
 			isMailSent = true;
 
 		} catch (MessagingException mex) {

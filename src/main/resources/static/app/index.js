@@ -22,7 +22,7 @@ myApp.controller('indexContrl', ($scope, $http, meassgeAlertService,$window) => 
 			subject: $scope.custSubject,
 			message: $scope.custMessage
 		};
-		console.log("Form adata ", formData);
+//		console.log("Form adata ", formData);
 		$http({
 			method: "POST",
 			url: 'submitForm',
