@@ -12,4 +12,5 @@ import lombok.Setter;
 @Getter
 public class JwtKeyResponse {
 	private String secreteKey;
+	private String issuer;
 }

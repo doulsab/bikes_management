@@ -6,10 +6,8 @@ public interface IUserService {
 
 	User addUser(User user);
 
-	boolean checkUsernameExist(String username);
+	User checkUserExist(String username);
 
-	String authenticate(String username, String password);
-	
 	User checkEmailExist(String email);
 
 }

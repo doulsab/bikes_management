@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class UserController {
-
+	BCryptPasswordEncoder brcEncoder = new BCryptPasswordEncoder();
 	private final IUserService userService;
 	private final JWTTokenConfig jwtConfig;
 
@@ -35,7 +37,7 @@ public class UserController {
 	@PostMapping(value = "/adduserdetails", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> addUser(@Valid @RequestBody User user) {
 		// Check the user name already exist or not
-		if (userService.checkUsernameExist(user.getUsername())) {
+		if (userService.checkUserExist(user.getUsername()) != null) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
 		}
 
@@ -53,16 +55,23 @@ public class UserController {
 		String password = loginRequest.getPassword();
 		Map<String, String> response = new HashMap<>();
 		String token = "";
-		String msg = userService.authenticate(username, password);
-		if (msg.contains("User is valid")) {
-			token = this.jwtConfig.createToken(username);
-			System.out.println("token is " + token);
-			response.put(MESSAGE, msg);
+		User existingUser = userService.checkUserExist(username);
+
+		if (existingUser != null) {
+			if (!brcEncoder.matches(password, existingUser.getPassword())) {
+				response.put(MESSAGE, "Authentication failed password does not match");
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+			}
+
+			token = this.jwtConfig.createToken(username,existingUser.getEmail(),existingUser.getAuthorities());
+			response.put(MESSAGE, "User is valid Authenticated successful");
+			response.put("token", token);
 			return ResponseEntity.ok(response);
 		} else {
-			response.put(MESSAGE, msg);
+			response.put(MESSAGE, "User not exist in database");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
+
 	}
 
 	@PatchMapping(value = "/update_password")

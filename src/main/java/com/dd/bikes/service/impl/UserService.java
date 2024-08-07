@@ -30,27 +30,8 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public boolean checkUsernameExist(String username) {
-		User existingUser = userRepository.findByUsername(username);
-		if (existingUser != null) {
-			logger.debug("Username already exists {} ", username);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public String authenticate(String username, String password) {
-	    User existingUser = userRepository.findByUsername(username);
-	    if (existingUser == null) {
-	        return "User not exist in database";
-	    }
-
-	    if (brcEncoder.matches(password, existingUser.getPassword())) {
-	        return "User is valid Authenticated successful";
-	    } else {
-	        return "Authentication failed password does not match";
-	    }
+	public User checkUserExist(String username) {
+		return userRepository.findByUsername(username);
 	}
 
 	@Override
