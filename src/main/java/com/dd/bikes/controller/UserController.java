@@ -3,6 +3,7 @@ package com.dd.bikes.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +19,15 @@ import com.dd.bikes.model.User;
 import com.dd.bikes.service.IUserService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
 
+	@Autowired
 	private IUserService userService;
 	public static final String MESSAGE = "message";
-
-	public UserController(IUserService userService) {
-		this.userService = userService;
-	}
 
 	@PostMapping(value = "/adduserdetails", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> addUser(@Valid @RequestBody User user) {

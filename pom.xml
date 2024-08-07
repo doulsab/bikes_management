@@ -14,7 +14,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>bikes_management</name>
-	<description>Demo project for Spring Boot with Hibernate to manage the bikes info system.</description>
+	<description>Demo project for Spring Boot with Hibernate to manage the bikes
+		info system.</description>
 	<properties>
 		<java.version>17</java.version>
 		<configuration-finalName>bikes_management</configuration-finalName>
@@ -80,15 +81,46 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
+
+		<!-- Exclude the default logging framework provided by Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Include Log4j2 dependencies -->
+		<!-- Log4j2 Dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+
 		<!-- Spring Security Dependencies -->
 		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		</dependency>
+
+
+		<!-- Spring Security Dependencies -->
+		<!--<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>

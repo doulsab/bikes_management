@@ -19,9 +19,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Table(name = "user_details")
 @Entity
+@Data
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -72,113 +76,6 @@ public class User {
 	@PreUpdate
 	protected void onUpdate() {
 		modifiedDate = new Date();
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public Long getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(Long mobile) {
-		this.mobile = mobile;
-	}
-
-	public String getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public User(String name, String username, String email, String password, String gender, Long mobile,
-			String birthdate, String address, Date createdDate, Date modifiedDate) {
-		super();
-		this.name = name;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.gender = gender;
-		this.mobile = mobile;
-		this.birthdate = birthdate;
-		this.address = address;
-		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
-	}
-
-	public User() {
-		super();
 	}
 
 }
