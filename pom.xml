@@ -94,7 +94,6 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Include Log4j2 dependencies -->
 		<!-- Log4j2 Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -113,14 +112,14 @@
 
 
 		<!-- Spring Security Dependencies -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-		</dependency>-->
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
@@ -144,6 +143,21 @@
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
+		<!-- JWT Token-->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.2.2</version>
+		</dependency>
+		
+		 <!-- Annotation Processor Dependency Example -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-configuration-processor</artifactId>
+        <optional>true</optional>
+        <scope>provided</scope>
+    </dependency>
+
 	</dependencies>
 
 	<build>

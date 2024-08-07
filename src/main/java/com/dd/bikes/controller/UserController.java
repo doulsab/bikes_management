@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dd.bikes.jwt.JWTTokenConfig;
 import com.dd.bikes.model.LoginRequest;
 import com.dd.bikes.model.User;
 import com.dd.bikes.service.IUserService;
@@ -23,10 +24,12 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RequiredArgsConstructor
 public class UserController {
 
-	@Autowired
-	private IUserService userService;
+	private final IUserService userService;
+	private final JWTTokenConfig jwtConfig;
+
 	public static final String MESSAGE = "message";
 
 	@PostMapping(value = "/adduserdetails", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -49,9 +52,11 @@ public class UserController {
 		String username = loginRequest.getUsername();
 		String password = loginRequest.getPassword();
 		Map<String, String> response = new HashMap<>();
-
+		String token = "";
 		String msg = userService.authenticate(username, password);
 		if (msg.contains("User is valid")) {
+			token = this.jwtConfig.createToken(username);
+			System.out.println("token is " + token);
 			response.put(MESSAGE, msg);
 			return ResponseEntity.ok(response);
 		} else {
