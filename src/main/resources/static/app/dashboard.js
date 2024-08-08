@@ -1,5 +1,5 @@
 //--------------------------- Dashboard Controller ----------
-myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService) => {
+myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService, tokenAuth,msgOkayService) => {
 
 	$scope.onload = () => {
 		getAllBikesStored();
@@ -10,7 +10,8 @@ myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService) => {
 			method: "GET",
 			url: 'getBikesList',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				...tokenAuth.getToken()
 			}
 		}).then(function(response) {
 			console.log("Response Data ", response.data);
@@ -25,6 +26,7 @@ myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService) => {
 		window.location.href = "add";
 	}
 	$scope.logOut = () => {
+		sessionStorage.removeItem("authToken");
 		window.location.href = "login";
 	}
 
@@ -49,7 +51,8 @@ myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService) => {
 			method: "DELETE",
 			url: `deleteBike/${$scope.idToDelete}`,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				...tokenAuth.getToken()
 			}
 		}).then(function(response) {
 			if (response.status === 204) {
@@ -58,12 +61,23 @@ myApp.controller('dashboardCtrl', ($scope, $http, meassgeAlertService) => {
 				$scope.closeModel();
 			}
 		}, function(response) {
-			console.log("Delete Response Error ", response);
-			meassgeAlertService.showAlert('Error!', 'Failed to delete the bike. Please try again', 'error');
+			let errorMsg = "";
+			if (response.status === 403) {
+				errorMsg = "Access Denied: You do not have the required permissions."
+			} else {
+				errorMsg = "Failed to delete the bike. Please try again"
+			}
+			msgOkayServicemsgOkayService.showAlert('Error!', errorMsg, 'error')
+				.then(function(result) {
+					window.location.href = "dashboard";
+				})
+				.catch(function(error) {
+					window.location.href = "login";
+				});
 		});
 	};
-	
-	
+
+
 
 
 }

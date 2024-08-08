@@ -1,5 +1,5 @@
 //--------------------------- Add Controller ----------
-myApp.controller('addBikeCtrl', function($scope, $http, BikeTypesFactory, meassgeAlertService) {
+myApp.controller('addBikeCtrl', function($scope, $http, BikeTypesFactory, meassgeAlertService, tokenAuth, msgOkayService) {
 	$scope.bikeTypes = BikeTypesFactory.getBikeTypes();
 
 	$scope.saveDetails = () => {
@@ -16,24 +16,31 @@ myApp.controller('addBikeCtrl', function($scope, $http, BikeTypesFactory, meassg
 			url: 'addDetails',
 			data: dataJson,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				...tokenAuth.getToken()
 			}
 		}).then(function(response) {
-			
+			console.log("Add Bike ss ", response);
 			if (response.status === 201) {
 				meassgeAlertService.showAlert('Success!', 'Data saved successfully!', 'success');
-//					.then(() => {
-						setTimeout(() => {
-							window.location.href = "dashboard";
-						}, 2500);
-//					})
-//					.catch(() => {
-//						console.log('Alert closed without action');
-//					});
+				setTimeout(() => {
+					window.location.href = "dashboard";
+				}, 2500);
 			}
 		}, function(response) {
-			meassgeAlertService.showAlert('Error!', 'Failed to save data!', 'error');
-			console.log(response);
+			let errorMsg = "";
+			if (response.status === 403) {
+				errorMsg = "Access Denied: You do not have the required permissions."
+			} else {
+				errorMsg = "Failed to save data"
+			}
+			msgOkayService.showAlert('Error!', errorMsg, 'error')
+				.then(function(result) {
+					window.location.href = "dashboard";
+				})
+				.catch(function(error) {
+					window.location.href = "login";
+				});
 		});
 	}
 	$scope.clearFields = () => {

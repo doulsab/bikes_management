@@ -1,15 +1,18 @@
 package com.dd.bikes.controller;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +56,7 @@ public class UserController {
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 		String username = loginRequest.getUsername();
 		String password = loginRequest.getPassword();
-		Map<String, String> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>();
 		String token = "";
 		User existingUser = userService.checkUserExist(username);
 
@@ -63,9 +66,24 @@ public class UserController {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 			}
 
-			token = this.jwtConfig.createToken(username,existingUser.getEmail(),existingUser.getAuthorities());
-			response.put(MESSAGE, "User is valid Authenticated successful");
+			String role = existingUser.getRole();
+			Collection<? extends GrantedAuthority> authorities;
+
+			if (role == null || role.trim().isEmpty()) {
+				authorities = Collections.emptyList();
+			} else {
+				authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
+			}
+
+			// Generate token with authorities
+			token = this.jwtConfig.createToken(username, existingUser.getEmail(), authorities);
+
+			List<String> roles = authorities.stream().map(GrantedAuthority::getAuthority).toList();
+
+			response.put(MESSAGE, "User is valid. Authentication successful.");
 			response.put("token", token);
+			response.put("roles", roles);
+
 			return ResponseEntity.ok(response);
 		} else {
 			response.put(MESSAGE, "User not exist in database");

@@ -1,12 +1,10 @@
 package com.dd.bikes.model;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,24 +16,21 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Table(name = "user_details")
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails{
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +62,9 @@ public class User implements UserDetails{
 
 	@NotBlank(message = "Address is mandatory")
 	private String address;
+	
+//	@NotBlank(message = "Role is mandatory")
+	private String role;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date", nullable = false, updatable = false)
@@ -75,9 +73,6 @@ public class User implements UserDetails{
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "modified_date", nullable = false)
 	private Date modifiedDate;
-	
-	@Transient
-    private Collection<? extends GrantedAuthority> authorities = new HashSet<>();
 
 	@PrePersist
 	protected void onCreate() {
@@ -88,11 +83,6 @@ public class User implements UserDetails{
 	@PreUpdate
 	protected void onUpdate() {
 		modifiedDate = new Date();
-	}
-	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
 	}
 
 }

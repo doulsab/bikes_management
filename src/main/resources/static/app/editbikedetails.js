@@ -1,5 +1,5 @@
 //--------------------------- Add Controller ----------
-myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meassgeAlertService) {
+myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meassgeAlertService, tokenAuth, msgOkayService) {
 	$scope.bikeTypes = BikeTypesFactory.getBikeTypes();
 
 	$scope.onload = () => {
@@ -14,7 +14,8 @@ myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meass
 			method: "GET",
 			url: `getDetailsById/${bikeId}`,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				...tokenAuth.getToken()
 			}
 		}).then(function(response) {
 			const bikeDetails = response.data;
@@ -24,16 +25,28 @@ myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meass
 			$scope.price = bikeDetails.price;
 			$scope.selectedBikeType = bikeDetails.bikeType;
 			$scope.bikeId = bikeDetails.id;
+
 		}, function(response) {
-			console.log("Error response", response);
-			meassgeAlertService.showAlert('Error!', 'Failed to get data!', 'error');
+			let errorMsg = "";
+			if (response.status === 403) {
+				errorMsg = "Access Denied: You do not have the required permissions."
+			} else {
+				errorMsg = "Failed to save data"
+			}
+			msgOkayService.showAlert('Error!', errorMsg, 'error')
+				.then(function(result) {
+					window.location.href = "dashboard";
+				})
+				.catch(function(error) {
+					window.location.href = "login";
+				});
 		});
 
 	}
 
 	$scope.updateDetails = () => {
 		let dataJson = {
-			id:$scope.bikeId,
+			id: $scope.bikeId,
 			model: $scope.model,
 			manufacturer: $scope.manufacturer,
 			year: $scope.myear,
@@ -46,7 +59,8 @@ myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meass
 			url: 'updateDetails',
 			data: dataJson,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				...tokenAuth.getToken()
 			}
 		}).then(function(response) {
 			console.log("Update data is ", response);
@@ -54,8 +68,19 @@ myApp.controller('editBikeCtrl', function($scope, $http, BikeTypesFactory, meass
 				meassgeAlertService.showAlert('Success!', 'Data Updated successfully!', 'success');
 			}
 		}, function(response) {
-			meassgeAlertService.showAlert('Error!', 'Failed to update data!', 'error');
-			console.log(response);
+			let errorMsg = "";
+			if (response.status === 403) {
+				errorMsg = "Access Denied: You do not have the required permissions."
+			} else {
+				errorMsg = "Failed to update data!";
+			}
+			msgOkayService.showAlert('Error!', errorMsg, 'error')
+				.then(function(result) {
+					//console.log("OK clicked. Performing post-action...");
+				})
+				.catch(function(error) {
+					//console.log("Alert dismissed. No action performed.");
+				});;
 		});
 	}
 	$scope.clearFields = () => {

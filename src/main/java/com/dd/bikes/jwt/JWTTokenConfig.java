@@ -3,7 +3,6 @@ package com.dd.bikes.jwt;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.dd.bikes.model.User;
+import com.dd.bikes.model.UserPricipal;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,8 +36,8 @@ public class JWTTokenConfig {
 		return JWT.require(Algorithm.HMAC256(jwtResponse.getSecreteKey())).build().verify(token);
 	}
 
-	public User parseJWT(DecodedJWT jwt) {
-		return User.builder().username(jwt.getSubject()).email(jwt.getClaim("email").asString())
+	public UserPricipal parseJWT(DecodedJWT jwt) {
+		return UserPricipal.builder().username(jwt.getSubject()).email(jwt.getClaim("email").asString())
 				.authorities(getAuthorityByJwt(jwt)).build();
 	}
 

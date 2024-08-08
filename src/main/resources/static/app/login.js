@@ -25,9 +25,14 @@ myApp.controller('loginContrl', ($scope, $http, meassgeAlertService, $window, $t
 		}).then(function(response) {
 			console.log("Authentication success", response);
 			if (response.status === 200) {
+//				JWT token at client side.
+				const token = response.data.token;
+				if (token) {
+					sessionStorage.setItem('authToken', token); // Save token in sessionStorage
+				}
 				meassgeAlertService.showAlert('Success!', response.data.message, 'success');
 				$timeout(() => {
-					$window.location.href = "dashboard"; // Redirect to dashboard upon successful authentication
+					$window.location.href = "dashboard";
 				}, 1000);
 			} else {
 				console.log("Unexpected response status", response.status);

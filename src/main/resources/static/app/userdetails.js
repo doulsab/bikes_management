@@ -1,5 +1,5 @@
 //--------------------------- Add User Controller ----------
-myApp.controller('addUserCtrl', function($scope, $http, meassgeAlertService, $filter) {
+myApp.controller('addUserCtrl', function($scope, $http, meassgeAlertService, $filter,tokenAuth) {
 	$scope.onload = () => {
 		$scope.genderList = genders;
 	}

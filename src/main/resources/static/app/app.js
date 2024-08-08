@@ -27,23 +27,46 @@ myApp.factory('BikeTypesFactory', () => {
 // SweetAlert Service
 myApp.service('meassgeAlertService', ['$q', function($q) {
 	this.showAlert = function(title, text, icon) {
-//		let deferred = $q.defer();
-
 		Swal.fire({
 			title: title,
 			text: text,
 			icon: icon,
 			confirmButtonText: 'OK'
 		});
-		/*.then((result) => {
-			console.log("clicked action ", result);
-			if (result.isConfirmed) {
-				deferred.resolve();
-			} else {
-				deferred.reject();
-			}
-		});*/
+	};
+}]);
 
-//		return deferred.promise;
+
+myApp.factory('tokenAuth', () => {
+	// Function to include the token in subsequent requests
+	let token = sessionStorage.getItem('authToken');
+	return {
+		getToken: () => {
+			return {
+				'Authorization': token ? 'Bearer ' + token : ''
+			};
+		}
+	};
+
+});
+
+myApp.service('msgOkayService', ['$q', function($q) {
+	this.showAlert = function(title, text, icon) {
+		let deferred = $q.defer();
+
+		Swal.fire({
+			title: title,
+			text: text,
+			icon: icon,
+			confirmButtonText: 'OK'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				deferred.resolve(result);
+			} else {
+				deferred.reject(result);
+			}
+		});
+
+		return deferred.promise;
 	};
 }]);
